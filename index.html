@@ -461,6 +461,45 @@
       text-transform: uppercase;
     }
 
+    .alumni-list {
+      display: grid;
+      gap: 34px;
+    }
+
+    .alumni-category-title {
+      margin-bottom: 16px;
+      font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    }
+
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .alumni-card .card-body {
+      display: grid;
+      gap: 10px;
+    }
+
+    .alumni-card h4 {
+      margin-top: 0;
+    }
+
+    .alumni-card .degree {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .alumni-card .thesis {
+      margin-top: 0;
+    }
+
     .publication-list,
     .news-list,
     .sponsor-list {
@@ -781,6 +820,7 @@
     @media (max-width: 640px) {
       .container { width: min(100% - 1.5rem, 72rem); }
       .cards-3, .cards-4, .sponsor-grid { grid-template-columns: 1fr; }
+      .alumni-grid { grid-template-columns: 1fr; }
       .publication-group { padding: 20px; }
       .publication-group .publication-item { grid-template-columns: 1fr; }
       .publication-actions { justify-content: flex-start; }
@@ -972,6 +1012,74 @@
             <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Oreoluwa-Adegbite-Headshot-240x300.jpg" alt="Oreoluwa Adegbite" decoding="async" loading="lazy"></div><div class="card-body"><h4>Oreoluwa Adegbite</h4></div></article>
             <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/LinkedIn-1-200x300.jpg" alt="Maxwell Bacon" decoding="async" loading="lazy"></div><div class="card-body"><h4>Maxwell Bacon</h4></div></article>
             <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Taiki-Headshot-266x300.jpg" alt="Taiki Murakami" decoding="async" loading="lazy"></div><div class="card-body"><h4>Taiki Murakami</h4></div></article>
+          </div>
+        </div>
+
+        <div class="team-group reveal">
+          <h3 class="team-group-title">Alumni</h3>
+          <div class="alumni-list">
+            <section class="alumni-category" aria-labelledby="alumni-post-doctoral">
+              <h4 id="alumni-post-doctoral" class="alumni-category-title">Post-Doctoral</h4>
+              <div class="alumni-grid">
+                <article class="card alumni-card"><div class="card-body"><h4>Sagar Jalui</h4><p class="degree">Ph.D., Mechanical Engineering, 2024</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Alan Burl</h4><p class="degree">Ph.D., Mechanical Engineering, 2025</p></div></article>
+              </div>
+            </section>
+            <section class="alumni-category" aria-labelledby="alumni-phd">
+              <h4 id="alumni-phd" class="alumni-category-title">Ph.D.</h4>
+              <div class="alumni-grid">
+                <article class="card alumni-card"><div class="card-body"><h4>Sagar Jalui</h4><p class="degree">Ph.D., Mechanical Engineering, 2024</p><p class="thesis">AM-driven design innovation: DfAM constraints in adjoint shape optimization for gas turbine applications</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Ankit Saxena</h4><p class="degree">Ph.D., Mechanical Engineering, 2024</p><p class="thesis">Systematic design of pressure-actuated adaptive structural cells enabling adaptive mechanical properties in mechanical structures</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Philip King</h4><p class="degree">Ph.D., Mechanical Engineering, 2023</p><p class="thesis">Bridging the oldest and newest manufacturing technologies: Additive Manufacturing, Metal Casting, and Internet of Things.</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Foxian Fan</h4><p class="degree">Ph.D., Industrial &amp; Manufacturing Engineering, 2023</p><p class="thesis">Evolution of Additive Manufacturing surface morphology during Centrifugal Disc Finishing.</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Md Moinuddin Shuvo</h4><p class="degree">Ph.D., Mechanical Engineering, 2023</p><p class="thesis">Improving sustainability of Sand-Casting Processes via novel 3D Mold Designs.</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Xi Gong</h4><p class="degree">Ph.D., Mechanical Engineering, 2020</p><p class="thesis">Machining Behavior and Material Properties in Additive Manufacturing of TI-6AL-4V Parts</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Maryam Tilton</h4><p class="degree">Ph.D., Mechanical Engineering, 2020</p><p class="thesis">Multi-Objective Design and Characterization of Orthopaedic Implants and Meta-Biomaterials Fabricated via Additive Manufacturing</p></div></article>
+              </div>
+            </section>
+            <section class="alumni-category" aria-labelledby="alumni-masters">
+              <h4 id="alumni-masters" class="alumni-category-title">Masters</h4>
+              <div class="alumni-grid">
+                <article class="card alumni-card"><div class="card-body"><h4>Kaitlyn Hartman</h4><p class="degree">M.S. Mechanical Engineering, 2025</p><p class="thesis">Functionally Graded TPMS Lattice Structures Optimized to Improve Mechanical Strength</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Mychal Taylor</h4><p class="degree">M.S. Mechanical Engineering, 2024</p><p class="thesis">Power cell packaging using a structural electronics approach</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Buket Yilmaz</h4><p class="degree">M.S. Mechanical Engineering, 2024</p><p class="thesis">A review of the interface design in multi-material laser powder bed fusion of metals</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Matthew Williams</h4><p class="degree">M.S. Mechanical Engineering, 2024</p><p class="thesis">Multi-axis routing of syringe deposited conductive traces over topology-optimized multi-functional structures</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Serah Hatch</h4><p class="degree">M.S. Mechanical Engineering, 2024</p><p class="thesis">A microstructure based machine learning model to predict mechanical properties of LPBF-manufactured 15-5PH stainless steel.</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Carson Vath</h4><p class="degree">M.S. Mechanical Engineering, 2024</p><p class="thesis">Development and testing of novel multi-material additive manufacturing systems for embedding wire electronic.</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Sandy Karam</h4><p class="degree">M.S. Mechanical Engineering, 2023</p><p class="thesis">Additive Manufacturing of patient-specific high-fidelity and thickness-controlled cerebral aneurysm geometries</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Willem Groeneveld-Meijer</h4><p class="degree">M.S. Mechanical Engineering, 2023</p><p class="thesis">Does Finer Powder get deposited first in Powder Bed? A Comparative Study using Simulation and Experimental Techniques.</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Ryan Stebbins</h4><p class="degree">M.S. Mechanical Engineering, 2022</p><p class="thesis">Novel Runner Extension Designs via 3D Sand-printing to Improve Casting Performance</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Paula Clares</h4><p class="degree">M.S. Additive Manufacturing &amp; Design, 2022</p><p class="thesis">Fundamental Understanding into Bimodal Powder Size Distributions in Binder Jetting Additive Manufacturing Process</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Erik Jacobs</h4><p class="degree">M.S. Additive Manufacturing &amp; Design, 2021</p><p class="thesis">Influence of Anti-Counterfeiting Taggants on the Tensile Properties of STEP Additively Manufactured Polymer</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Nicholas Soares</h4><p class="degree">M.S. Mechanical Engineering, 2021</p><p class="thesis">Incorporating Novel Sprue Design and Additive Manufacturing Techniques to Improve Nickel Aluminum Bronze Castings</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Daniel Martinez</h4><p class="degree">M.S. Additive Manufacturing, 2019</p><p class="thesis">Indirect Hybrid Manufacturing - Integrating 3D Sand-Printing for Metal Casting</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Casey Bate</h4><p class="degree">M.S. Mechanical Engineering, 2019</p><p class="thesis">Fundamental Study on 3D Sand-Printed Molds: Metal Flow and Thermal Properties</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Gregory Bicknell</h4><p class="degree">M.S. Mechanical Engineering, 2019</p><p class="thesis">Electrical Discharge Machining Process Design for Post-Processing Stainless Steel 316L Additively Manufactured Parts</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Santosh Reddy Sama</h4><p class="degree">M.S. Mechanical Engineering, 2018</p><p class="thesis">Investigation into Non-Conventional Mold Design Using 3D Sand-Printing in Castings</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Jiayi Wang</h4><p class="degree">M.S. Engineering Design, 2017</p><p class="thesis">Part Design and Topology Optimization for Rapid Sand and Investment Casting</p></div></article>
+              </div>
+            </section>
+            <section class="alumni-category" aria-labelledby="alumni-undergraduate">
+              <h4 id="alumni-undergraduate" class="alumni-category-title">Undergraduate</h4>
+              <div class="alumni-grid">
+                <article class="card alumni-card"><div class="card-body"><h4>Joe Borst, Visiting student from Clarkson University</h4><p class="degree">B.S. Mechanical Engineering, 2026</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Joseph Daghir</h4><p class="degree">B.S. Mechanical Engineering, 2025</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Thomas Molnar</h4><p class="degree">B.S. Mechanical Engineering, 2024</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Avah Cherry, Visiting student from University of Tennessee</h4><p class="degree">B.E. Aerospace Engineering, 2026</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Rachel Bonfini</h4><p class="degree">B.S. Biomedical and Mechanical Engineering, 2024</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Valerie Fu</h4><p class="degree">B.S. Mechanical Engineering, 2023</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Christine Gabriele</h4><p class="degree">B.S. Mechanical Engineering, 2023</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Jay Sim</h4><p class="degree">B.S. Mechanical Engineering, 2022</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Shelby Bauer</h4><p class="degree">B.S. Mechanical Engineering, 2022</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Nick Vitagliano</h4><p class="degree">B.S. Mechanical Engineering, 2021</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Alex Cayley</h4><p class="degree">B.S. Mechanical Engineering, 2021</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Brianna Wilson</h4><p class="degree">B.S. Industrial and Manufacturing Engineering, 2021</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Israel Monroy</h4><p class="degree">B.S. Mechanical Engineering, 2021</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Hunter Snyder</h4><p class="degree">B.S. Mechanical Engineering, 2019</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>Michael Szczesniak</h4><p class="degree">B.S. Mechanical Engineering, 2018</p></div></article>
+                <article class="card alumni-card"><div class="card-body"><h4>James Lauer</h4><p class="degree">B.S. Mechanical Engineering, 2018</p></div></article>
+              </div>
+            </section>
           </div>
         </div>
       </div>
