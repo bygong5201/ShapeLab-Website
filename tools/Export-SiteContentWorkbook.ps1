@@ -169,6 +169,20 @@ foreach ($group in [regex]::Matches($team, '<div class="team-group reveal">([\s\
     )))
   }
 }
+foreach ($category in [regex]::Matches($team, '<section class="alumni-category"[\s\S]*?<h4[^>]*class=["'']alumni-category-title["''][^>]*>([\s\S]*?)</h4>([\s\S]*?)</section>', "Singleline,IgnoreCase")) {
+  $categoryName = Strip-Html($category.Groups[1].Value)
+  foreach ($card in [regex]::Matches($category.Groups[2].Value, '<article class="card alumni-card">([\s\S]*?)</article>', "Singleline,IgnoreCase")) {
+    $teamRows.Add((New-Row @(
+      "Alumni - $categoryName",
+      $(Get-FirstText $card.Value '<h4>([\s\S]*?)</h4>'),
+      $(Get-FirstText $card.Value '<p[^>]*class=["'']degree["''][^>]*>([\s\S]*?)</p>'),
+      "",
+      $(Get-FirstText $card.Value '<p[^>]*class=["'']thesis["''][^>]*>([\s\S]*?)</p>'),
+      "",
+      ""
+    )))
+  }
+}
 
 $publicationRows = New-Object System.Collections.Generic.List[object]
 $publications = Get-Between $html '<section id="publications"' '<section id="news"'
@@ -192,10 +206,23 @@ $news = Get-Between $html '<section id="news"' '<section id="sponsors"'
 foreach ($item in [regex]::Matches($news, '<article class="news-feature reveal">([\s\S]*?)</article>', "Singleline,IgnoreCase")) {
   $img = [regex]::Match($item.Value, '<img\b[^>]*>', "Singleline,IgnoreCase")
   $newsRows.Add((New-Row @(
+    "Featured",
     $(Get-FirstText $item.Value '<h3>([\s\S]*?)</h3>'),
     $(Get-FirstText $item.Value '<p>([\s\S]*?)</p>'),
+    $(Get-FirstAttr $item.Value '<a\b[^>]*class=["'']text-link["''][^>]*>' "href"),
     $(if ($img.Success) { Get-Attr $img.Value "src" } else { "" }),
     $(if ($img.Success) { Get-Attr $img.Value "alt" } else { "" }),
+    $(Get-LineNumber $html ($html.IndexOf($item.Value, [StringComparison]::Ordinal)))
+  )))
+}
+foreach ($item in [regex]::Matches($news, '<article class="news-item">([\s\S]*?)</article>', "Singleline,IgnoreCase")) {
+  $newsRows.Add((New-Row @(
+    $(Get-FirstText $item.Value '<div class="card-kicker">([\s\S]*?)</div>'),
+    $(Get-FirstText $item.Value '<h3>([\s\S]*?)</h3>'),
+    $(Get-FirstText $item.Value '<p>([\s\S]*?)</p>'),
+    $(Get-FirstAttr $item.Value '<a\b[^>]*class=["'']text-link["''][^>]*>' "href"),
+    "",
+    "",
     $(Get-LineNumber $html ($html.IndexOf($item.Value, [StringComparison]::Ordinal)))
   )))
 }
@@ -268,7 +295,7 @@ $sheets = @(
   @{ Name = "Research"; Headers = @("Group", "Kicker", "Title", "Description", "Image Src", "Image Alt", "Source Line"); Rows = $researchRows.ToArray() },
   @{ Name = "Team"; Headers = @("Group", "Name", "Role", "Education", "Focus", "Image Src", "Image Alt"); Rows = $teamRows.ToArray() },
   @{ Name = "Publications"; Headers = @("Group", "Title", "Authors", "Publication Meta", "DOI Or Link", "Source Line"); Rows = $publicationRows.ToArray() },
-  @{ Name = "News"; Headers = @("Headline", "Description", "Image Src", "Image Alt", "Source Line"); Rows = $newsRows.ToArray() },
+  @{ Name = "News"; Headers = @("Period", "Headline", "Description", "Link", "Image Src", "Image Alt", "Source Line"); Rows = $newsRows.ToArray() },
   @{ Name = "Sponsors Partners"; Headers = @("Grid", "Name", "Type Label", "Website", "Logo Src", "Logo Alt", "Source Line"); Rows = $sponsorRows.ToArray() },
   @{ Name = "Contact"; Headers = @("Field", "Label", "Value"); Rows = $contactRows.ToArray() },
   @{ Name = "Images Referenced"; Headers = @("Src", "Alt Text", "Kind", "Loading", "Source Line"); Rows = $imageRows.ToArray() },

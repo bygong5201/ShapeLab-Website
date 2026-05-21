@@ -619,6 +619,39 @@
       color: var(--muted);
     }
 
+    .news-more-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    #news-archive[hidden] {
+      display: none !important;
+    }
+
+    .news-toggle {
+      min-height: 44px;
+      padding: 11px 18px;
+      border: 1px solid rgba(30, 64, 124, 0.24);
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .news-toggle:hover,
+    .news-toggle:focus-visible {
+      background: #16356e;
+      box-shadow: var(--shadow-soft);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
     .publication-meta {
       margin-top: 8px;
       color: var(--muted);
@@ -1382,9 +1415,97 @@
           <div><h3>Kaitlyn Hartman awarded 2nd place in the MSEC 2025 student poster competition.</h3><p>Recognized for work on functionally graded TPMS lattice structures for biomedical applications.</p></div>
         </article>
         <article class="news-feature reveal">
-          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/250096-psn-tpms_blueorange-300x225.jpg" alt="Two-metal 3D printed structure" decoding="async" loading="lazy"></div>
-          <div><h3>Beyond welding: researchers 3D print two metals in a single complex structure.</h3><p>Multi-material additive manufacturing research points toward new structures and joining-free production strategies.</p></div>
+          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/daghir-joseph-240x300.jpg" alt="Joseph Daghir" decoding="async" loading="lazy"></div>
+          <div><h3>Joseph Daghir honored as a Spring 2025 Student Marshal.</h3><p>SHAPE Lab undergraduate honors researcher Joseph Daghir was recognized for academic achievement and contributions to engineering student life.</p></div>
         </article>
+        <div class="news-more-actions reveal">
+          <button class="news-toggle" type="button" aria-expanded="false" aria-controls="news-archive" data-news-toggle>Show more news</button>
+        </div>
+        <div id="news-archive" class="news-list reveal" aria-label="SHAPE Lab news archive" hidden>
+          <article class="news-item"><div class="card-kicker">Spring 2025</div><h3>Congratulations to Ashish Jacob for being recognized with the <a class="text-link" href="https://www.psu.edu/news/graduate-school/story/graduate-school-honors-40-graduate-students-teaching-excellence" target="_blank" rel="noopener noreferrer">2025 Harold F. Martin Graduate Assistant Outstanding Teaching Award</a>.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3><a class="text-link" href="https://www.psu.edu/news/engineering/story/beyond-welding-researchers-3d-print-two-metals-single-complex-structure" target="_blank" rel="noopener noreferrer">Beyond welding: researchers 3D print two metals in a single complex structure</a>.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3>SHAPE Lab's multi-material laser powder bed fusion capabilities were featured by Additive Manufacturing Media.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3>Dr. Guha Manogharan gave a Computational Design Symposium keynote on design optimization for multi-material laser powder bed fusion.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3>Dr. Guha Manogharan was named co-director of Penn State's additive manufacturing center. <a class="text-link" href="https://www.psu.edu/news/engineering" target="_blank" rel="noopener noreferrer">Read more</a>.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3>Georgia Tech's Manufacturing Institute lecture series featured "Hybrid Additive Manufacturing: Role of AM in advancing traditional manufacturing methods" by Dr. Guha Manogharan.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3><a class="text-link" href="https://www.psu.edu/news/engineering/story/3d-printing-grad-student-helps-optimize-emerging-technology" target="_blank" rel="noopener noreferrer">3D-Printing Grad Student Helps Optimize Emerging Technology</a> by Paula Clares.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3><a class="text-link" href="https://www.psu.edu/news/engineering/story/3d-printing-surgical-implants-inspires-engineering-graduate-student" target="_blank" rel="noopener noreferrer">3D-Printing Surgical Implants Inspires Engineering Graduate Student</a> by Lauren Judkins.</h3></article>
+          <article class="news-item"><div class="card-kicker">Current Events</div><h3><a class="text-link" href="https://www.additivemanufacturing.media/articles/3d-printing-for-better-flame-from-a-gas-turbine-swirler-the-cool-parts-show-42" target="_blank" rel="noopener noreferrer">3D Printing for Better Flame From a Gas Turbine Swirler: The Cool Parts Show #42</a> from Additive Manufacturing Media.</h3></article>
+          <article class="news-item"><div class="card-kicker">Summer 2025</div><h3>Congratulations to Kaitlyn Hartman for being awarded 2nd place in the MSEC 2025 student poster competition for her research poster titled "Functionally graded TPMS lattices structures for biomedical applications."</h3></article>
+          <article class="news-item"><div class="card-kicker">Spring 2025</div><h3>SHAPE Lab undergraduate honors researcher Joseph Daghir has been honored as a <a class="text-link" href="https://www.engr.psu.edu/academics/student-marshals.aspx" target="_blank" rel="noopener noreferrer">Spring 2025 Student Marshal</a>.</h3></article>
+          <article class="news-item"><div class="card-kicker">Spring 2025</div><h3>Congratulations to Dr. Foxian Fan, who is starting as tenure-track assistant professor at Eastern Kentucky University.</h3></article>
+          <article class="news-item"><div class="card-kicker">July 2024</div><h3>Congratulations to Dr. Ankit Saxena, who is starting as tenure-track assistant professor at the University of Wyoming.</h3></article>
+          <article class="news-item"><div class="card-kicker">July 2024</div><h3>Congratulations to Dr. Sagar Jalui, who successfully defended his dissertation titled "AM-Driven Design Innovation: DfAM Constraints in Adjoint Shape Optimization for Gas Turbine Applications."</h3></article>
+          <article class="news-item"><div class="card-kicker">July 2024</div><h3>Congratulations to Dr. Ankit Saxena, who successfully defended his dissertation titled "Systematic Design of Pressure-Actuated Adaptive Structural Cells Enabling Adaptive Mechanical Properties in Mechanical Structures."</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2024</div><h3>Congratulations to Jacklyn Griffis for being selected for the Naval Research Enterprise Internship Program 2024 at Naval Surface Warfare Center, Carderock Division.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Carson Vath, who successfully defended his master's thesis titled "Development and Testing of Novel Multi-Material Additive Manufacturing Systems for Embedding Wire Electronics."</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Dr. Maryam Tilton, who is starting as tenure-track assistant professor at the University of Texas, Austin.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Dr. Philip King, who is starting as tenure-track assistant professor at the University of Maine.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Dr. Md Moinuddin Shuvo, who successfully defended his dissertation titled "Improving sustainability of Sand-Casting Processes via novel 3D Mold Designs."</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Dr. Foxian Fan, who successfully defended his dissertation titled "Evolution of Additive Manufacturing surface morphology during Centrifugal Disc Finishing."</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Dr. Philip King, who successfully defended his dissertation titled "Bridging the oldest and newest manufacturing technologies: Additive Manufacturing, Metal Casting, and Internet of Things."</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Sandy Karam, who successfully defended her master's paper titled "Additive Manufacturing of patient-specific high-fidelity and thickness-controlled cerebral aneurysm geometries."</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Willem Groeneveld-Meijer, who successfully defended his master's thesis titled "Does Finer Powder get deposited first in Powder Bed? - A Comparative Study using Simulation and Experimental Techniques."</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2023</div><h3>Congratulations to Jacklyn Griffis, who was awarded the Walker Graduate Assistantship with ARL.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2023</div><h3>Congratulations to Foxian Fan, who was awarded the IISE Best Track Paper Award - Engineering Economy Division for "Cost Analysis of Mass Finishing Additively Manufactured Ti6Al4V Parts" at IISE 2023 in New Orleans, LA.</h3></article>
+          <article class="news-item"><div class="card-kicker">March 2023</div><h3>Congratulations to Jacklyn Griffis for being selected for the Naval Research Enterprise Internship Program 2023.</h3></article>
+          <article class="news-item"><div class="card-kicker">January 2023</div><h3>Congratulations to Ankit Saxena for being recognized with the 2022-23 Harold F. Martin Graduate Assistant Outstanding Teaching Award.</h3></article>
+          <article class="news-item"><div class="card-kicker">October 2022</div><h3>Congratulations to Philip King for being awarded the Foundry Education Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">October 2022</div><h3>Congratulations to Shuvo for being awarded the Foundry Education Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">October 2022</div><h3>Congratulations to Shuvo for being awarded the Steel Founders Society of America award for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2022</div><h3>Congratulations to Philip King for being awarded NSF student support for the Solid Freeform Fabrication Symposium 2022.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2022</div><h3>Congratulations to Shuvo for being awarded the Graduate Fellowship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2022</div><h3>Congratulations to Ankit Saxena for being awarded the part-time graduate teaching excellence liaison by the Schreyer Institute for Teaching Excellence.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2022</div><h3>Congratulations to Ankit Saxena for being awarded the 2022 ASME Graduate Teaching Fellowship.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2022</div><h3>Congratulations to Paula Clares, who successfully defended her M.S. thesis in Additive Manufacturing &amp; Design titled "Fundamental Understanding into Bimodal Powder Size Distributions in Binder Jetting Additive Manufacturing Process."</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2022</div><h3>Congratulations to Ryan Stebbins, who successfully defended his M.S. thesis in Mechanical Engineering titled "Novel Runner Extension Designs via 3D Sand-printing to Improve Casting Performance."</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2022</div><h3>Congratulations to Jay Sim for being awarded the Outstanding Undergraduate Research Achievement.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2022</div><h3>Congratulations to Foxian Fan for the 2021-22 Harold F. Martin Graduate Assistant Outstanding Teaching Award.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2022</div><h3>Congratulations to Paula Clares for the 2021-22 Distinguished Master's Thesis Award.</h3></article>
+          <article class="news-item"><div class="card-kicker">March 2022</div><h3>Congratulations to Willem Groeneveld-Meijer for being awarded the Naval Research Enterprise Internship Program 2022.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2021</div><h3>Congratulations to Jay Sim, who was awarded the Foundry Education Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2021</div><h3>Congratulations to Philip King, who was awarded the Foundry Education Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2021</div><h3>Congratulations to Sagar Jalui for being awarded NSF student support for the Solid Freeform Fabrication Symposium 2021.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2021</div><h3>Congratulations to Ankit Saxena for being awarded NSF student support for the Solid Freeform Fabrication Symposium 2021.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2021</div><h3>Congratulations to Nicholas Vitagliano for being awarded NSF student support for the Solid Freeform Fabrication Symposium 2021.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2021</div><h3>Congratulations to Willem Groeneveld-Meijer for being awarded NSF student support for the Solid Freeform Fabrication Symposium 2021.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2021</div><h3>Congratulations to Jay Sim, who was awarded the H. H. Harris Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2021</div><h3>Congratulations to Jay Sim for being awarded Second Best Presenter at the Undergraduate Research Exhibition.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2020</div><h3>Congratulations to Philip King for winning the Penn State Energy and Environmental Sustainability Green Dollars Grant.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2020</div><h3>Congratulations to Dr. Maryam Tilton on defending her dissertation titled "Multi-Objective Design and Characterization of Orthopaedic Implants and Meta-Biomaterials Fabricated via Additive Manufacturing."</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2020</div><h3>Congratulations to Dr. Xi Gong, who successfully defended his dissertation titled "Machining Behavior and Material Properties in Additive Manufacturing of TI-6AL-4V Parts."</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2020</div><h3>Congratulations to Jay Sim, who was awarded the H. H. Harris Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2020</div><h3>Congratulations to Jay Sim for being awarded Third Best Presenter at the Undergraduate Research Exhibition for work on Reinventing Foundry in a Box for the 21st Century.</h3></article>
+          <article class="news-item"><div class="card-kicker">March 2020</div><h3>Congratulations to SHAPE Lab member Phil King, who was awarded the NSF Graduate Research Fellowship for work on numerical modeling and experimentation with novel 3D runner geometries.</h3></article>
+          <article class="news-item"><div class="card-kicker">March 2020</div><h3>Congratulations to Jay Sim, who was selected for a 2020 PSU Erickson Discovery Grant for research in casting science.</h3></article>
+          <article class="news-item"><div class="card-kicker">January 2020</div><h3>Congratulations to Jay Sim, who was awarded the Foundry Education Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">January 2020</div><h3>Congratulations to Jay Sim, who was awarded the Spring 2020 Equity REU Grant to continue research redesigning AFS Foundry-in-a-Box.</h3></article>
+          <article class="news-item"><div class="card-kicker">December 2019</div><h3>SHAPE Lab member Israel Monroy presented research work and findings at the Fall 2019 Design Showcase at University Park.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2019</div><h3>Congratulations to Philip King, who was awarded the PA Manufacturing Fellowship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2019</div><h3>Congratulations to Philip King, who was awarded the Foundry Education Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2019</div><h3>Congratulations to Jay Sim, who was awarded the Foundry Education Foundation scholarship for research in metal casting.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2019</div><h3>Congratulations to Jay Sim, who was awarded the Fall 2019 Equity REU Grant to begin research on redesigning AFS Foundry-in-a-Box.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2019</div><h3>Congratulations to Israel Monroy, who was awarded a scholarship from the College of Engineering for acceptance into the 2019 Fall REU program.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2019</div><h3>SHAPE Lab member Daniel Martinez gave two technical presentations on "In-Direct Hybrid AM: Advancing Metal Castings via 3D Sand-Printing" and "Influence of 3D Sand-Printing Processing Conditions on Thermo-Mechanical Properties of Molds" at SFF 2019 in Austin, TX.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2019</div><h3>SHAPE Lab member Daniel Martinez gave a poster presentation on "Improving mechanical properties of metal castings using novel sprue designs via 3D sand-printing" at ASME MSEC 2019 in Erie, PA.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2019</div><h3>Congratulations to Maryam Tilton, who was awarded the DAAD RISE Professional 2019 Award and joined Zeiss 3D ManuFact in Germany for a three-month study and training program.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2019</div><h3>Congratulations to Greg Bicknell, who successfully defended his M.S. thesis in Mechanical Engineering titled "Electrical Discharge Machining Process for Post-Processing Stainless Steel 316L Additively Manufactured Parts."</h3></article>
+          <article class="news-item"><div class="card-kicker">March 2019</div><h3>Congratulations to Daniel Martinez, who was awarded the EESL Green Dollars grant for his project titled "Image Analysis of Pore Networks in 3D-Sand Printed Specimens Using Computer Tomography Scanning."</h3></article>
+          <article class="news-item"><div class="card-kicker">February 2019</div><h3>Maryam Tilton presented work at the Orthopaedic Research Society Annual Meeting 2019 in Austin, TX on additively manufactured proximal humerus fracture fixation plates and patient-specific prostheses.</h3></article>
+          <article class="news-item"><div class="card-kicker">December 2018</div><h3>Congratulations to Santosh Reddy Sama, who graduated with dual M.S. thesis degrees in Mechanical Engineering and Additive Manufacturing and Design.</h3></article>
+          <article class="news-item"><div class="card-kicker">December 2018</div><h3>Congratulations to Santosh Reddy Sama, who published "Novel Sprue Design in Metal Casting via 3D Sand-Printing" in <em>Additive Manufacturing</em>.</h3></article>
+          <article class="news-item"><div class="card-kicker">August 2018</div><h3>Congratulations to Santosh Reddy Sama, who published "Non-conventional mold design for metal casting using 3D sand-printing" in the <em>Journal of Manufacturing Processes</em>.</h3></article>
+          <article class="news-item"><div class="card-kicker">June 2018</div><h3>SHAPE Lab member Santosh Reddy Sama gave a technical presentation on "Non-Conventional Mold Design for Metal Casting using 3D Sand-Printing" at NAMRC in College Station, TX.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2018</div><h3>SHAPE Lab member Santosh Reddy Sama gave a technical presentation on "Topology Optimization for Metal Castings using 3D Sand-Printing including Manufacturing Constraints" at IISE 2018 in Orlando, FL.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2018</div><h3>SHAPE Lab member Jiayi Wang gave a technical presentation on "Topology Optimization for Rapid Investment Casting of AM Patterns via Material Extrusion" at IISE 2018 in Orlando, FL.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2018</div><h3>SHAPE Lab member Maryam Jahanzad gave a technical presentation on <a class="text-link" href="https://www.rapid3devent.com/" target="_blank" rel="noopener noreferrer">"How Can Additive Manufacturing Improve Fatigue Life in Fracture Fixations: An Experimental Study in Proximal Humerus Fractures"</a> at RAPID 2018 in Fort Worth, TX.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2018</div><h3>Congratulations to Jiayi Wang, who published "Re-Thinking Design Methodology for Castings: 3D Sand-Printing And Topology Optimization" in the <em>International Journal of Metalcasting</em>.</h3></article>
+          <article class="news-item"><div class="card-kicker">April 2018</div><h3>Congratulations to undergraduate honors lab member Michael Szczesniak, who won the 2nd best presentation at the 2018 Undergraduate Research Exhibition for his thesis project, "Wire Arc Additive Manufacturing (WAAM) Utilizing a Low Cost, Closed Loop Current Control System."</h3></article>
+          <article class="news-item"><div class="card-kicker">December 2017</div><h3>Jiayi Wang successfully defended his thesis on "Part Design and Topology Optimization for Rapid Sand and Investment Casting" and graduated with a master's in Engineering Design.</h3></article>
+          <article class="news-item"><div class="card-kicker">October 2017</div><h3>An invited talk on <a class="text-link" href="https://www.programmaster.org/" target="_blank" rel="noopener noreferrer">"Advanced Hybrid Manufacturing: Roadmap of Technological Challenges"</a> was presented at the 2017 Annual International Solid Freeform Fabrication Symposium.</h3></article>
+          <article class="news-item"><div class="card-kicker">October 2017</div><h3>An invited talk on <a class="text-link" href="https://www.methodsmachine.com/" target="_blank" rel="noopener noreferrer">"Hybrid Manufacturing - Integrating Additive Manufacturing with Traditional Technologies"</a> was presented at MetalStorm 2017.</h3></article>
+          <article class="news-item"><div class="card-kicker">May 2017</div><h3>SHAPE Lab member Maryam Jahanzad gave a technical presentation on <a class="text-link" href="https://www.rapid3devent.com/" target="_blank" rel="noopener noreferrer">"Addressing Challenges in Custom Orthopedic Implants Using Additive Manufacturing"</a> at RAPID 2017 in Pittsburgh, PA.</h3></article>
+        </div>
       </div>
     </section>
 
@@ -2729,6 +2850,22 @@
     }, { threshold: 0.12 });
 
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    const newsToggle = document.querySelector("[data-news-toggle]");
+    const newsArchive = document.querySelector("#news-archive");
+    if (newsToggle && newsArchive) {
+      newsToggle.addEventListener("click", () => {
+        const isExpanded = newsToggle.getAttribute("aria-expanded") === "true";
+        newsToggle.setAttribute("aria-expanded", String(!isExpanded));
+        newsArchive.hidden = isExpanded;
+        newsToggle.textContent = isExpanded ? "Show more news" : "Show less news";
+        if (!isExpanded) {
+          newsArchive.classList.add("visible");
+        } else {
+          newsArchive.classList.remove("visible");
+        }
+      });
+    }
 
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const parallaxLayers = [...document.querySelectorAll("[data-parallax-speed]")].map((layer) => ({
