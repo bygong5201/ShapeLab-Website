@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Additive Blueprint Background Fit Preview</title>
+  <link rel="stylesheet" href="shape-lab-background-fit.css">
+  <style>
+    body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #172f47; }
+    main { min-height: 220vh; }
+    .hero { min-height: 100dvh; display: grid; place-items: center start; padding: clamp(24px, 6vw, 96px); }
+    .panel { max-width: 720px; padding: clamp(24px, 4vw, 56px); border-radius: 28px; background: rgba(255,255,255,.78); box-shadow: 0 24px 72px rgba(24,50,74,.12); backdrop-filter: blur(12px); }
+    h1 { font-size: clamp(48px, 8vw, 118px); line-height: .9; letter-spacing: -.07em; margin: 0; max-width: 9ch; }
+    p { font-size: clamp(17px, 1.8vw, 24px); line-height: 1.6; color: #5c748c; max-width: 620px; }
+    section { padding: 96px clamp(24px, 6vw, 96px); }
+  </style>
+</head>
+<body>
+  <div class="parallax-scene" aria-hidden="true">
+    <div class="parallax-layer" data-parallax-speed="1"></div>
+  </div>
+  <main>
+    <header class="hero">
+      <div class="panel">
+        <h1>Additive Manufacturing</h1>
+        <p>Preview showing the fitted parallax blueprint background on a full-size website viewport.</p>
+      </div>
+    </header>
+    <section>
+      <div class="card" style="padding:32px;border-radius:24px;max-width:760px;">
+        <h2>Scroll test</h2>
+        <p>The background remains fixed and moves subtly with scroll and pointer motion.</p>
+      </div>
+    </section>
+  </main>
+  <script src="shape-lab-background-fit.js"></script>
+</body>
+</html>

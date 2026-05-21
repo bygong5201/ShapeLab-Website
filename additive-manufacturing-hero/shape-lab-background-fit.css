@@ -1,0 +1,152 @@
+/*
+  Additive Manufacturing Blueprint Parallax Background
+  Drop this CSS after your main stylesheet. It is designed to fit an existing
+  index.html without renaming or replacing your current page.
+
+  Required asset path:
+  additive-manufacturing-hero/assets/additive-blueprint-bg-1920.png
+*/
+
+:root {
+  --am-bg-image: url("additive-manufacturing-hero/assets/additive-blueprint-bg-1920.png");
+  --am-bg-paper: #f8fbff;
+  --am-blue: 83, 177, 255;
+  --am-ink: 7, 21, 38;
+  --am-parallax-overscan: 3.5%;
+}
+
+body {
+  position: relative;
+  background: var(--am-bg-paper);
+}
+
+.parallax-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 19% 17%, rgba(var(--am-blue), 0.22), transparent 30%),
+    radial-gradient(circle at 78% 79%, rgba(255, 184, 107, 0.12), transparent 34%),
+    linear-gradient(180deg, #ffffff 0%, var(--am-bg-paper) 100%);
+}
+
+.parallax-layer {
+  position: absolute;
+  inset: calc(var(--am-parallax-overscan) * -1);
+  opacity: 1;
+  transform: translate3d(
+    var(--mouse-x, 0px),
+    calc(var(--parallax-y, 0px) + var(--mouse-y, 0px)),
+    0
+  );
+  will-change: transform;
+}
+
+.parallax-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(248, 251, 255, 0.22) 0%, rgba(248, 251, 255, 0.04) 42%, rgba(248, 251, 255, 0.16) 100%),
+    var(--am-bg-image);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  filter: saturate(1.24) contrast(1.09) brightness(1.01);
+  opacity: 0.98;
+}
+
+.parallax-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0) 0%, rgba(248, 251, 255, 0.10) 58%, rgba(248, 251, 255, 0.30) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.23) 70%, rgba(255, 255, 255, 0.34));
+}
+
+/* Hide the older dark/alloy decorative layers so the blueprint background fits cleanly. */
+.alloy-blob,
+.alloy-grid,
+.alloy-scan,
+.alloy-lattice,
+.alloy-contours,
+.alloy-particles {
+  display: none !important;
+}
+
+/* Make content cards readable while allowing the background to show through. */
+.section {
+  position: relative;
+  isolation: isolate;
+}
+
+.section:not(.surface)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(252, 251, 248, 0.78), rgba(252, 251, 248, 0.46) 48%, rgba(252, 251, 248, 0.66)),
+    rgba(252, 251, 248, 0.18);
+}
+
+.surface {
+  background:
+    linear-gradient(90deg, rgba(246, 244, 239, 0.80), rgba(246, 244, 239, 0.52) 48%, rgba(246, 244, 239, 0.70)),
+    rgba(246, 244, 239, 0.24);
+}
+
+.card,
+.director,
+.publication-group,
+.news-item,
+.sponsor-item,
+.project-card,
+.contact-card,
+.news-feature > div:not(.feature-image) {
+  border-color: rgba(227, 230, 234, 0.78) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(10px);
+}
+
+.hero-bg {
+  opacity: 0.28;
+}
+
+.hero::after,
+.hero-bg::after {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(var(--am-ink), 0.08), rgba(var(--am-ink), 0.34) 66%),
+    linear-gradient(180deg, rgba(var(--am-ink), 0.18), rgba(var(--am-ink), 0.48));
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --am-bg-image: url("additive-manufacturing-hero/assets/additive-blueprint-bg-2560.png");
+    --am-parallax-overscan: 2.5%;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --am-parallax-overscan: 8%;
+  }
+
+  .parallax-layer::before {
+    background-position: 62% top;
+    background-size: auto 100%;
+    filter: saturate(1.18) contrast(1.04) brightness(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer {
+    transform: none !important;
+  }
+}

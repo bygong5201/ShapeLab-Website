@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Additive Manufacturing Research Lab</title>
+  <meta name="description" content="Clean additive manufacturing research lab hero page with animated blueprint background." />
+
+  <style>
+    :root {
+      --ink: #18324a;
+      --muted: #5f7890;
+      --accent: #15a8ff;
+      --accent-soft: rgba(21, 168, 255, 0.18);
+      --paper: #f8fbff;
+      --panel: rgba(255, 255, 255, 0.72);
+      --line: rgba(35, 105, 170, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      isolation: isolate;
+      display: grid;
+      place-items: center start;
+      padding: clamp(1.25rem, 3vw, 3rem);
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(248, 251, 255, 0.95) 0%, rgba(248, 251, 255, 0.78) 42%, rgba(248, 251, 255, 0.62) 100%),
+        url("assets/additive-blueprint-bg.png") center / cover no-repeat;
+      background-attachment: fixed;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -12%;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 22% 30%, rgba(21, 168, 255, 0.16), transparent 23%),
+        radial-gradient(circle at 78% 22%, rgba(21, 168, 255, 0.12), transparent 21%),
+        radial-gradient(circle at 70% 82%, rgba(24, 50, 74, 0.08), transparent 24%);
+      animation: slowDrift 18s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(90deg, black, transparent 70%);
+      opacity: 0.28;
+      transform: translateZ(0);
+      animation: blueprintGrid 22s linear infinite;
+    }
+
+    .nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem clamp(1.25rem, 3vw, 3rem);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid rgba(21, 168, 255, 0.42);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 28px rgba(21, 168, 255, 0.12);
+    }
+
+    .brand-mark span {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(21, 168, 255, 0.8);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(1rem, 2.6vw, 2rem);
+      align-items: center;
+      font-size: 0.93rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .hero-content {
+      width: min(760px, 100%);
+      margin-top: 4rem;
+      padding: clamp(1.25rem, 4vw, 3rem);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.56));
+      box-shadow: 0 24px 70px rgba(24, 50, 74, 0.10);
+      backdrop-filter: blur(10px);
+      transform: translateY(18px);
+      animation: contentRise 900ms ease-out forwards;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin: 0 0 1rem;
+      color: #1b77b7;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 2.6rem;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.7rem, 7vw, 6.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.08em;
+      color: var(--ink);
+      max-width: 10ch;
+    }
+
+    .lead {
+      max-width: 620px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.45vw, 1.22rem);
+      line-height: 1.7;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0.85rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(21, 168, 255, 0.32);
+      text-decoration: none;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 12px 28px rgba(24, 50, 74, 0.08);
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button.primary {
+      color: white;
+      background: linear-gradient(135deg, #167ec0, #18a8ff);
+      border-color: transparent;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba(24, 50, 74, 0.14);
+    }
+
+    .floating-node {
+      position: absolute;
+      z-index: 1;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 999px;
+      background: rgba(21, 168, 255, 0.55);
+      box-shadow: 0 0 20px rgba(21, 168, 255, 0.55);
+      pointer-events: none;
+      animation: pulse 3.8s ease-in-out infinite;
+    }
+
+    .floating-node.one { top: 26%; left: 57%; animation-delay: 0s; }
+    .floating-node.two { top: 68%; left: 31%; animation-delay: 1.2s; }
+    .floating-node.three { top: 77%; left: 73%; animation-delay: 2.1s; }
+
+    .scan-beam {
+      position: absolute;
+      z-index: 0;
+      left: -20%;
+      bottom: 24%;
+      width: 58vw;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(21, 168, 255, 0.62), transparent);
+      box-shadow: 0 0 16px rgba(21, 168, 255, 0.45);
+      opacity: 0.7;
+      transform: rotate(-8deg);
+      animation: scan 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 1.4rem;
+      transform: translateX(-50%);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+
+    .scroll-cue::after {
+      content: "";
+      width: 1px;
+      height: 3rem;
+      margin-top: 0.65rem;
+      background: linear-gradient(var(--accent), transparent);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+
+    .section {
+      padding: clamp(3rem, 7vw, 7rem) clamp(1.25rem, 3vw, 3rem);
+      background: white;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      padding: 1.25rem;
+      border: 1px solid rgba(24, 50, 74, 0.10);
+      border-radius: 22px;
+      background: #fbfdff;
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @keyframes slowDrift {
+      from { transform: translate3d(-1.5%, -1%, 0) scale(1); }
+      to { transform: translate3d(1.5%, 1%, 0) scale(1.04); }
+    }
+
+    @keyframes blueprintGrid {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 56px 56px, 56px 56px; }
+    }
+
+    @keyframes contentRise {
+      to { transform: translateY(0); opacity: 1; }
+      from { opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.28; }
+      50% { transform: scale(1.9); opacity: 0.82; }
+    }
+
+    @keyframes scan {
+      0%, 100% { transform: translateX(-18%) rotate(-8deg); opacity: 0; }
+      35%, 65% { opacity: 0.72; }
+      50% { transform: translateX(155%) rotate(-8deg); }
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(0.35); opacity: 0.4; transform-origin: top; }
+      50% { transform: scaleY(1); opacity: 1; transform-origin: top; }
+    }
+
+    @media (max-width: 780px) {
+      .hero {
+        min-height: 92vh;
+        background-attachment: scroll;
+        background-position: 57% center;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-content {
+        margin-top: 3.5rem;
+        border-radius: 22px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      .hero {
+        background-attachment: scroll;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Lab homepage">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span>AM Research Lab</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#research">Research</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="floating-node one" aria-hidden="true"></div>
+    <div class="floating-node two" aria-hidden="true"></div>
+    <div class="floating-node three" aria-hidden="true"></div>
+    <div class="scan-beam" aria-hidden="true"></div>
+
+    <main class="hero-content">
+      <p class="eyebrow">Additive Manufacturing</p>
+      <h1>Designing the next layer.</h1>
+      <p class="lead">
+        We develop process-aware design, advanced materials, and intelligent manufacturing methods for lattice structures, optimized parts, and high-performance 3D printed systems.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="#research">Explore Research</a>
+        <a class="button" href="#capabilities">View Capabilities</a>
+      </div>
+    </main>
+
+    <div class="scroll-cue" aria-hidden="true">Scroll</div>
+  </header>
+
+  <section class="section" id="research">
+    <div class="section-inner">
+      <p class="eyebrow">Research Areas</p>
+      <h2>Blueprint-to-build additive manufacturing research.</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Process Modeling</h3>
+          <p>Predictive tools for layer formation, energy delivery, and material-process-structure relationships.</p>
+        </article>
+        <article class="card">
+          <h3>Lattice Design</h3>
+          <p>Computational design of lightweight, architected structures with tunable mechanical performance.</p>
+        </article>
+        <article class="card">
+          <h3>Optimization</h3>
+          <p>Topology optimization, manufacturability constraints, and automated toolpath-informed design workflows.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="capabilities">
+    <div class="section-inner">
+      <p class="eyebrow">Capabilities</p>
+      <h2>Replace this section with your lab equipment, publications, people, or project highlights.</h2>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-inner">
+      <p class="eyebrow">Contact</p>
+      <h2>Start a collaboration.</h2>
+    </div>
+  </section>
+</body>
+</html>

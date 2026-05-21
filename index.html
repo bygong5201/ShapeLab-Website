@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>S.H.A.P.E. Lab - Systems for Hybrid-Additive Process Engineering | Penn State</title>
   <meta name="description" content="The mission of the SHAPE Lab is to advance Additive Manufacturing, Hybrid Manufacturing, and Sand-Printing for Metal Casting.">
+  <link rel="preload" as="image" href="additive-manufacturing-hero/assets/additive-blueprint-bg-1920.png">
+  <link rel="preload" as="image" href="additive-manufacturing-hero/assets/additive-blueprint-bg-2560.png" media="(min-width: 1800px)">
   <style>
     :root {
       --background: #fcfbf8;
@@ -20,6 +22,14 @@
       --radius: 16px;
       --shadow-soft: 0 10px 40px -20px rgba(19, 33, 58, 0.35);
       --shadow-elegant: 0 20px 60px -20px rgba(19, 41, 75, 0.42);
+      --am-bg-image: url("additive-manufacturing-hero/assets/additive-blueprint-bg-1920.png");
+      --am-bg-paper: #f8fbff;
+      --am-blue: 83, 177, 255;
+      --am-ink: 7, 21, 38;
+      --am-parallax-overscan: 2%;
+      --am-parallax-height: calc(100dvh + 360px);
+      --am-parallax-offset: -180px;
+      --am-parallax-travel: -150px;
     }
 
     * { box-sizing: border-box; }
@@ -27,6 +37,7 @@
     html { scroll-behavior: smooth; }
 
     body {
+      position: relative;
       margin: 0;
       background: var(--background);
       color: var(--foreground);
@@ -140,20 +151,43 @@
       position: fixed;
       inset: 0;
       z-index: 0;
+      width: 100vw;
+      height: 100dvh;
+      min-height: 100vh;
       pointer-events: none;
       overflow: hidden;
+      contain: paint;
+      transform: translateZ(0);
       background:
-        radial-gradient(circle at 22% 18%, rgba(83, 177, 255, 0.26), transparent 30%),
-        radial-gradient(circle at 78% 78%, rgba(255, 184, 107, 0.2), transparent 34%),
-        #050b16;
+        radial-gradient(circle at 19% 17%, rgba(var(--am-blue), 0.2), transparent 30%),
+        radial-gradient(circle at 78% 79%, rgba(255, 184, 107, 0.1), transparent 34%),
+        linear-gradient(180deg, #ffffff 0%, var(--am-bg-paper) 100%);
     }
 
     .parallax-layer {
       position: absolute;
-      inset: -10%;
-      opacity: 0.98;
-      transform: translate3d(0, var(--parallax-y, 0), 0);
+      top: var(--am-parallax-offset);
+      right: calc(var(--am-parallax-overscan) * -1);
+      left: calc(var(--am-parallax-overscan) * -1);
+      height: var(--am-parallax-height);
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
       will-change: transform;
+      backface-visibility: hidden;
+      contain: paint;
+    }
+
+    .parallax-layer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(248, 251, 255, 0.22) 0%, rgba(248, 251, 255, 0.04) 42%, rgba(248, 251, 255, 0.16) 100%),
+        var(--am-bg-image);
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      opacity: 0.95;
     }
 
     .parallax-layer::after {
@@ -161,132 +195,16 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 50% 46%, transparent 0%, rgba(5, 11, 22, 0.06) 46%, rgba(5, 11, 22, 0.48) 100%),
-        linear-gradient(180deg, rgba(252, 251, 248, 0.08), rgba(252, 251, 248, 0.24) 58%, rgba(252, 251, 248, 0.42));
-    }
-
-    .alloy-blob {
-      position: absolute;
-      width: 55rem;
-      height: 55rem;
-      border-radius: 999px;
-      filter: blur(54px);
-      opacity: 0.34;
-      mix-blend-mode: screen;
-      animation: alloyDrift 18s ease-in-out infinite;
-    }
-
-    .alloy-blob.one {
-      left: -18rem;
-      top: -12rem;
-      background:
-        radial-gradient(circle at 35% 35%, rgba(83, 177, 255, 0.9), transparent 28%),
-        radial-gradient(circle at 60% 55%, rgba(74, 222, 128, 0.5), transparent 32%),
-        radial-gradient(circle at 55% 35%, rgba(255, 184, 107, 0.42), transparent 36%);
-    }
-
-    .alloy-blob.two {
-      right: -20rem;
-      bottom: -18rem;
-      background:
-        radial-gradient(circle at 45% 40%, rgba(255, 184, 107, 0.65), transparent 30%),
-        radial-gradient(circle at 55% 62%, rgba(45, 212, 191, 0.58), transparent 34%),
-        radial-gradient(circle at 40% 65%, rgba(129, 140, 248, 0.42), transparent 38%);
-      animation-duration: 24s;
-      animation-direction: reverse;
-    }
-
-    .alloy-grid {
-      position: absolute;
-      inset: -12%;
-      opacity: 0.42;
-      background-image:
-        linear-gradient(rgba(125, 211, 252, 0.16) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(125, 211, 252, 0.16) 1px, transparent 1px);
-      background-size: 54px 54px;
-      mask-image: radial-gradient(circle at 50% 45%, black 0%, transparent 72%);
-      transform:
-        perspective(900px)
-        rotateX(62deg)
-        translate3d(calc(var(--mx, 0) * -16px), calc(var(--my, 0) * -10px), 0);
-    }
-
-    .alloy-scan,
-    .alloy-lattice,
-    .alloy-contours {
-      position: absolute;
-      fill: none;
-      pointer-events: none;
-    }
-
-    .alloy-scan {
-      inset: -10%;
-      width: 120%;
-      height: 120%;
-      opacity: 0.72;
-      transform: translate3d(calc(var(--mx, 0) * 18px), calc(var(--my, 0) * 12px), 0);
-    }
-
-    .alloy-scan path {
-      fill: none;
-      stroke: rgba(125, 211, 252, 0.68);
-      stroke-width: 1.3;
-      stroke-dasharray: 16 24;
-      animation: toolpathSlide 14s linear infinite;
-      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45));
-    }
-
-    .alloy-lattice {
-      top: 3%;
-      right: 0;
-      width: min(52vw, 680px);
-      opacity: 0.82;
-      transform:
-        translate3d(calc(var(--mx, 0) * -28px), calc(var(--my, 0) * -20px), 0)
-        rotate(-9deg);
-      animation: latticePulse 7s ease-in-out infinite;
-    }
-
-    .alloy-lattice line,
-    .alloy-lattice circle {
-      stroke: rgba(167, 243, 208, 0.62);
-      filter: drop-shadow(0 0 7px rgba(45, 212, 191, 0.35));
-    }
-
-    .alloy-contours {
-      width: min(78vw, 960px);
-      left: -12%;
-      bottom: -14%;
-      opacity: 0.64;
-      transform: translate3d(calc(var(--mx, 0) * 20px), calc(var(--my, 0) * -16px), 0);
-    }
-
-    .alloy-contours path {
-      fill: none;
-      stroke: rgba(253, 186, 116, 0.58);
-      stroke-width: 1.1;
-      stroke-dasharray: 7 12;
-      animation: toolpathSlide 22s linear infinite reverse;
-      filter: drop-shadow(0 0 10px rgba(251, 146, 60, 0.28));
-    }
-
-    .alloy-particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(226, 232, 240, 0.7);
-      box-shadow: 0 0 14px rgba(125, 211, 252, 0.7);
-      animation: particleRise var(--duration, 8s) ease-in-out infinite;
-      animation-delay: var(--delay, 0s);
+        radial-gradient(circle at 50% 36%, rgba(255, 255, 255, 0) 0%, rgba(248, 251, 255, 0.1) 58%, rgba(248, 251, 255, 0.3) 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.23) 70%, rgba(255, 255, 255, 0.34));
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
+      opacity: 0.28;
       transform: scale(1.12);
       animation: heroZoom 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-      will-change: transform;
     }
 
     .hero-bg img {
@@ -299,7 +217,9 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(7, 21, 38, 0.52), rgba(7, 21, 38, 0.76));
+      background:
+        radial-gradient(circle at 50% 38%, rgba(7, 21, 38, 0.08), rgba(7, 21, 38, 0.34) 66%),
+        linear-gradient(180deg, rgba(7, 21, 38, 0.18), rgba(7, 21, 38, 0.48));
     }
 
     .hero-inner {
@@ -334,6 +254,7 @@
       position: relative;
       overflow: hidden;
       scroll-margin-top: 80px;
+      isolation: isolate;
     }
 
     .section:not(.surface)::before {
@@ -341,13 +262,17 @@
       position: absolute;
       inset: 0;
       z-index: -1;
-      background: rgba(252, 251, 248, 0.72);
+      background:
+        linear-gradient(90deg, rgba(252, 251, 248, 0.74), rgba(252, 251, 248, 0.44) 48%, rgba(252, 251, 248, 0.64)),
+        rgba(252, 251, 248, 0.18);
     }
 
-    .section-pad { padding: 5rem 0; }
+    .section-pad { padding: 6rem 0; }
 
     .surface {
-      background: rgba(246, 244, 239, 0.82);
+      background:
+        linear-gradient(90deg, rgba(246, 244, 239, 0.78), rgba(246, 244, 239, 0.5) 48%, rgba(246, 244, 239, 0.68)),
+        rgba(246, 244, 239, 0.22);
       border-block: 1px solid var(--border);
     }
 
@@ -429,10 +354,11 @@
 
     .card {
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(227, 230, 234, 0.78);
       border-radius: var(--radius);
-      background: var(--card);
+      background: rgba(255, 255, 255, 0.82);
       box-shadow: var(--shadow-soft);
+      backdrop-filter: none;
       transition: transform 220ms ease, box-shadow 220ms ease;
     }
 
@@ -494,10 +420,11 @@
       align-items: start;
       margin-top: 3rem;
       padding: 34px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(227, 230, 234, 0.78);
       border-radius: 24px;
-      background: var(--card);
+      background: rgba(255, 255, 255, 0.84);
       box-shadow: var(--shadow-soft);
+      backdrop-filter: none;
     }
 
     .director img {
@@ -547,10 +474,11 @@
 
     .publication-group {
       padding: 26px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(227, 230, 234, 0.78);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.8);
       box-shadow: var(--shadow-soft);
+      backdrop-filter: none;
     }
 
     .publication-group h3 {
@@ -571,10 +499,11 @@
     .news-item,
     .sponsor-item {
       padding: 24px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(227, 230, 234, 0.78);
       border-radius: var(--radius);
-      background: var(--card);
+      background: rgba(255, 255, 255, 0.82);
       box-shadow: var(--shadow-soft);
+      backdrop-filter: none;
     }
 
     .publication-group .publication-item {
@@ -659,10 +588,11 @@
       flex-direction: column;
       min-height: 100%;
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(227, 230, 234, 0.78);
       border-radius: var(--radius);
-      background: var(--card);
+      background: rgba(255, 255, 255, 0.82);
       box-shadow: var(--shadow-soft);
+      backdrop-filter: none;
       transition: transform 220ms ease, box-shadow 220ms ease;
     }
 
@@ -712,6 +642,15 @@
       margin-top: 4rem;
     }
 
+    .news-feature > div:not(.feature-image) {
+      padding: 28px;
+      border: 1px solid rgba(227, 230, 234, 0.72);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: none;
+    }
+
     .news-feature:nth-child(even) .feature-image { order: 2; }
 
     .feature-image {
@@ -744,10 +683,11 @@
       gap: 28px;
       margin-top: 3rem;
       padding: 34px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(227, 230, 234, 0.78);
       border-radius: 24px;
-      background: var(--card);
+      background: rgba(255, 255, 255, 0.82);
       box-shadow: var(--shadow-elegant);
+      backdrop-filter: none;
     }
 
     .contact-card h3 {
@@ -811,27 +751,26 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes alloyDrift {
-      0% { transform: translate3d(-2%, -1%, 0) rotate(0deg) scale(1); }
-      50% { transform: translate3d(2%, 1%, 0) rotate(8deg) scale(1.05); }
-      100% { transform: translate3d(-2%, -1%, 0) rotate(0deg) scale(1); }
+    @media (min-width: 1800px) {
+      :root {
+        --am-bg-image: url("additive-manufacturing-hero/assets/additive-blueprint-bg-2560.png");
+        --am-parallax-overscan: 2.5%;
+      }
     }
 
-    @keyframes toolpathSlide {
-      0% { stroke-dashoffset: 0; opacity: 0.28; }
-      50% { opacity: 0.9; }
-      100% { stroke-dashoffset: -900; opacity: 0.28; }
-    }
+    @media (max-width: 900px) {
+      :root {
+        --am-parallax-overscan: 4%;
+        --am-parallax-height: calc(100dvh + 220px);
+        --am-parallax-offset: -120px;
+        --am-parallax-travel: -80px;
+      }
 
-    @keyframes latticePulse {
-      0%, 100% { opacity: 0.38; filter: blur(0.1px); }
-      50% { opacity: 0.84; filter: blur(0.4px); }
-    }
-
-    @keyframes particleRise {
-      from { transform: translateY(15%) scale(0.85); opacity: 0.12; }
-      50% { opacity: 0.72; }
-      to { transform: translateY(-18%) scale(1.08); opacity: 0.12; }
+      .parallax-layer::before {
+        background-position: 62% top;
+        background-size: auto 100%;
+        opacity: 0.92;
+      }
     }
 
     @media (max-width: 940px) {
@@ -854,15 +793,17 @@
       .director, .contact-card { padding: 22px; }
     }
 
+    @media (max-width: 759px) {
+      .parallax-layer {
+        transform: none !important;
+        will-change: auto;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hero-bg,
-      .parallax-layer,
-      .alloy-blob,
-      .alloy-scan path,
-      .alloy-lattice,
-      .alloy-contours path,
-      .alloy-particle {
+      .parallax-layer {
         animation: none;
         transform: none !important;
       }
@@ -876,58 +817,12 @@
 </head>
 <body>
   <div class="parallax-scene" aria-hidden="true">
-    <div class="parallax-layer" data-parallax-speed="-0.18">
-      <div class="alloy-blob one"></div>
-      <div class="alloy-blob two"></div>
-      <div class="alloy-grid"></div>
-      <svg class="alloy-scan" viewBox="0 0 1200 800" preserveAspectRatio="none">
-        <path d="M-40 180 C120 80 270 310 430 190 S720 40 900 185 1100 330 1260 190"></path>
-        <path d="M-30 310 C130 205 260 450 450 330 S760 170 930 315 1110 500 1260 330"></path>
-        <path d="M-20 450 C140 340 310 575 470 455 S730 300 910 455 1100 620 1240 470"></path>
-        <path d="M-60 590 C95 480 270 710 455 595 S735 450 905 600 1100 725 1270 610"></path>
-      </svg>
-      <svg class="alloy-lattice" viewBox="0 0 620 420">
-        <g fill="none">
-          <path d="M42 34 L90 42 L114 76 L66 76 L42 34 M138 34 L186 42 L210 76 L162 76 L138 34 M234 34 L282 42 L306 76 L258 76 L234 34 M330 34 L378 42 L402 76 L354 76 L330 34 M426 34 L474 42 L498 76 L450 76 L426 34" stroke="rgba(167,243,208,.58)"></path>
-          <path d="M66 118 L114 110 L138 152 L90 160 L66 118 M162 118 L210 110 L234 152 L186 160 L162 118 M258 118 L306 110 L330 152 L282 160 L258 118 M354 118 L402 110 L426 152 L378 160 L354 118 M450 118 L498 110 L522 152 L474 160 L450 118" stroke="rgba(167,243,208,.58)"></path>
-          <path d="M42 202 L90 210 L114 244 L66 244 L42 202 M138 202 L186 210 L210 244 L162 244 L138 202 M234 202 L282 210 L306 244 L258 244 L234 202 M330 202 L378 210 L402 244 L354 244 L330 202 M426 202 L474 210 L498 244 L450 244 L426 202" stroke="rgba(167,243,208,.58)"></path>
-          <path d="M66 286 L114 278 L138 320 L90 328 L66 286 M162 286 L210 278 L234 320 L186 328 L162 286 M258 286 L306 278 L330 320 L282 328 L258 286 M354 286 L402 278 L426 320 L378 328 L354 286 M450 286 L498 278 L522 320 L474 328 L450 286" stroke="rgba(167,243,208,.58)"></path>
-        </g>
-        <g fill="rgba(167,243,208,.78)" stroke="rgba(167,243,208,.62)">
-          <circle cx="42" cy="34" r="3"></circle><circle cx="90" cy="42" r="3"></circle><circle cx="114" cy="76" r="3"></circle><circle cx="66" cy="76" r="3"></circle>
-          <circle cx="186" cy="42" r="3"></circle><circle cx="282" cy="42" r="3"></circle><circle cx="378" cy="42" r="3"></circle><circle cx="474" cy="42" r="3"></circle>
-          <circle cx="66" cy="118" r="3"></circle><circle cx="210" cy="110" r="3"></circle><circle cx="330" cy="152" r="3"></circle><circle cx="474" cy="160" r="3"></circle>
-          <circle cx="42" cy="202" r="3"></circle><circle cx="186" cy="210" r="3"></circle><circle cx="306" cy="244" r="3"></circle><circle cx="450" cy="244" r="3"></circle>
-          <circle cx="114" cy="278" r="3"></circle><circle cx="258" cy="286" r="3"></circle><circle cx="402" cy="278" r="3"></circle><circle cx="522" cy="320" r="3"></circle>
-        </g>
-      </svg>
-      <svg class="alloy-contours" viewBox="0 0 900 620">
-        <path d="M70 390 C160 250 270 520 360 350 C450 180 560 440 665 250 C760 80 820 210 870 155"></path>
-        <path d="M45 450 C145 300 265 570 380 410 C500 245 570 505 710 315 C815 170 840 300 920 220"></path>
-        <path d="M15 515 C125 360 280 635 410 475 C530 325 615 575 755 390 C865 245 900 350 955 300"></path>
-        <path d="M110 305 C210 170 320 425 420 265 C525 95 640 365 725 180 C800 25 855 120 910 85"></path>
-      </svg>
-      <div class="alloy-particles">
-        <span class="alloy-particle" style="left: 6%; top: 18%; --duration: 7s; --delay: -1s;"></span>
-        <span class="alloy-particle" style="left: 14%; top: 68%; --duration: 9s; --delay: -3s;"></span>
-        <span class="alloy-particle" style="left: 23%; top: 36%; --duration: 8s; --delay: -2s;"></span>
-        <span class="alloy-particle" style="left: 34%; top: 82%; --duration: 11s; --delay: -6s;"></span>
-        <span class="alloy-particle" style="left: 42%; top: 24%; --duration: 8s; --delay: -4s;"></span>
-        <span class="alloy-particle" style="left: 53%; top: 56%; --duration: 10s; --delay: -7s;"></span>
-        <span class="alloy-particle" style="left: 64%; top: 14%; --duration: 7s; --delay: -5s;"></span>
-        <span class="alloy-particle" style="left: 73%; top: 74%; --duration: 12s; --delay: -8s;"></span>
-        <span class="alloy-particle" style="left: 82%; top: 42%; --duration: 8s; --delay: -2.5s;"></span>
-        <span class="alloy-particle" style="left: 91%; top: 22%; --duration: 10s; --delay: -6.5s;"></span>
-        <span class="alloy-particle" style="left: 17%; top: 48%; width: 5px; height: 5px; --duration: 9s; --delay: -4.5s;"></span>
-        <span class="alloy-particle" style="left: 58%; top: 88%; width: 5px; height: 5px; --duration: 13s; --delay: -9s;"></span>
-        <span class="alloy-particle" style="left: 88%; top: 62%; width: 4px; height: 4px; --duration: 11s; --delay: -7.5s;"></span>
-      </div>
-    </div>
+    <div class="parallax-layer" data-parallax-speed="1"></div>
   </div>
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#home" aria-label="S.H.A.P.E. Lab home">
-        <img src="shapelab_photos/shapelab_photos/trans-logo.png" alt="S.H.A.P.E. Lab logo">
+        <img src="shapelab_photos/shapelab_photos/trans-logo.png" alt="S.H.A.P.E. Lab logo" decoding="async" loading="eager">
         <span>
           <span class="brand-title">S.H.A.P.E. Lab</span>
           <span class="brand-subtitle">Penn State</span>
@@ -948,10 +843,10 @@
   <main>
     <section id="home" class="hero">
       <div class="hero-bg">
-        <img src="shapelab_photos/shapelab_photos/250096-psn-tpms_blueorange-300x225.jpg" alt="Multi-material TPMS lattice printed at SHAPE Lab">
+        <img src="shapelab_photos/shapelab_photos/250096-psn-tpms_blueorange-300x225.jpg" alt="Multi-material TPMS lattice printed at SHAPE Lab" decoding="async" loading="eager" fetchpriority="high">
       </div>
       <div class="container hero-inner">
-        <img class="hero-logo" src="shapelab_photos/shapelab_photos/trans-logo.png" alt="S.H.A.P.E. Lab logo">
+        <img class="hero-logo" src="shapelab_photos/shapelab_photos/trans-logo.png" alt="S.H.A.P.E. Lab logo" decoding="async" loading="eager">
         <h1>S.H.A.P.E. Lab</h1>
         <p>Systems for Hybrid-Additive Process Engineering</p>
       </div>
@@ -980,7 +875,7 @@
           <h3>Sand Casting</h3>
           <div class="grid cards-3">
             <article class="card">
-              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/20250625_125103-1024x768.jpg" alt="3D sand printing research"></div>
+              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/20250625_125103-1024x768.jpg" alt="3D sand printing research" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">Sand Casting</div>
                 <h4>Advancing metal casting process via 3D sand printing</h4>
@@ -988,7 +883,7 @@
               </div>
             </article>
             <article class="card">
-              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/IMG_5766.jpg" alt="Casting process equipment"></div>
+              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/IMG_5766.jpg" alt="Casting process equipment" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">Metal Casting</div>
                 <h4>Printed molds, cores, and process design</h4>
@@ -996,7 +891,7 @@
               </div>
             </article>
             <article class="card">
-              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/SHAPE-Lab-2018.jpg" alt="SHAPE Lab group"></div>
+              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/SHAPE-Lab-2018.jpg" alt="SHAPE Lab group" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">Process Systems</div>
                 <h4>Manufacturing-centered research environments</h4>
@@ -1010,7 +905,7 @@
           <h3>Hybrid Manufacturing</h3>
           <div class="grid cards-3">
             <article class="card">
-              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/Additive_Manufacturing-G.Manogharan.jpg" alt="Additive manufacturing equipment"></div>
+              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/Additive_Manufacturing-G.Manogharan.jpg" alt="Additive manufacturing equipment" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">Hybrid Manufacturing</div>
                 <h4>Additive Manufacturing + Mass Finishing Hybrid Manufacturing System</h4>
@@ -1018,7 +913,7 @@
               </div>
             </article>
             <article class="card">
-              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/250096-psn-tpms_blueorange-300x225.jpg" alt="TPMS structure"></div>
+              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/250096-psn-tpms_blueorange-300x225.jpg" alt="TPMS structure" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">DfAM</div>
                 <h4>Design for Additive Manufacturing</h4>
@@ -1026,7 +921,7 @@
               </div>
             </article>
             <article class="card">
-              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/penn-state-news-lg1.png" alt="Penn State engineering feature"></div>
+              <div class="image-frame"><img src="shapelab_photos/shapelab_photos/penn-state-news-lg1.png" alt="Penn State engineering feature" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">Biomedical AM</div>
                 <h4>Patient-specific and orthopedic additive manufacturing</h4>
@@ -1045,7 +940,7 @@
         </div>
 
         <article class="director reveal">
-          <img src="shapelab_photos/shapelab_photos/Screen-Shot-2021-09-28-at-8.08.44-AM-240x300.png" alt="Guha Manogharan">
+          <img src="shapelab_photos/shapelab_photos/Screen-Shot-2021-09-28-at-8.08.44-AM-240x300.png" alt="Guha Manogharan" decoding="async" loading="lazy">
           <div>
             <h3>Guha Manogharan, Ph. D.</h3>
             <p class="role">Co-Director, CIMP-3D &middot; Associate Professor, Department of Mechanical Engineering</p>
@@ -1057,24 +952,24 @@
         <div class="team-group reveal">
           <h3 class="team-group-title">Post-Doctorate and Graduate Researchers</h3>
           <div class="grid cards-4">
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/78A8608-211x300.jpg" alt="Aishwarya Deshpande"></div><div class="card-body"><h4>Aishwarya Deshpande, Ph.D.</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Kazi-4x5-1-240x300.jpg" alt="Kazi Safowan Shahed"></div><div class="card-body"><h4>Kazi Safowan Shahed</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Headshot-e1775499920484-236x300.png" alt="Jacklyn Griffis"></div><div class="card-body"><h4>Jacklyn Griffis</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/DSC_0136-e1665517373923-265x300.jpg" alt="Avez Shaikh"></div><div class="card-body"><h4>Avez Shaikh</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/ashish-ad60a0810bc29cdc-240x300.jpg" alt="Ashish Jacob"></div><div class="card-body"><h4>Ashish Jacob</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/bryan-300x300.jpg" alt="Bryan Gong"></div><div class="card-body"><h4>Bryan Gong</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Hanlon-Headshot-c8f1b3c9a0932a06-274x300.jpg" alt="Thomas Hanlon"></div><div class="card-body"><h4>Thomas Hanlon</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/luis-rod-300x247.jpg" alt="Luis Rodriquez"></div><div class="card-body"><h4>Luis Rodriquez</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/78A8608-211x300.jpg" alt="Aishwarya Deshpande" decoding="async" loading="lazy"></div><div class="card-body"><h4>Aishwarya Deshpande, Ph.D.</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Kazi-4x5-1-240x300.jpg" alt="Kazi Safowan Shahed" decoding="async" loading="lazy"></div><div class="card-body"><h4>Kazi Safowan Shahed</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Headshot-e1775499920484-236x300.png" alt="Jacklyn Griffis" decoding="async" loading="lazy"></div><div class="card-body"><h4>Jacklyn Griffis</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/DSC_0136-e1665517373923-265x300.jpg" alt="Avez Shaikh" decoding="async" loading="lazy"></div><div class="card-body"><h4>Avez Shaikh</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/ashish-ad60a0810bc29cdc-240x300.jpg" alt="Ashish Jacob" decoding="async" loading="lazy"></div><div class="card-body"><h4>Ashish Jacob</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/bryan-300x300.jpg" alt="Bryan Gong" decoding="async" loading="lazy"></div><div class="card-body"><h4>Bryan Gong</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Hanlon-Headshot-c8f1b3c9a0932a06-274x300.jpg" alt="Thomas Hanlon" decoding="async" loading="lazy"></div><div class="card-body"><h4>Thomas Hanlon</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/luis-rod-300x247.jpg" alt="Luis Rodriquez" decoding="async" loading="lazy"></div><div class="card-body"><h4>Luis Rodriquez</h4></div></article>
           </div>
         </div>
 
         <div class="team-group reveal">
           <h3 class="team-group-title">Undergraduate Students</h3>
           <div class="grid cards-4">
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Julian-Kim-241x300.jpg" alt="Julian Kim"></div><div class="card-body"><h4>Julian Kim</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Oreoluwa-Adegbite-Headshot-240x300.jpg" alt="Oreoluwa Adegbite"></div><div class="card-body"><h4>Oreoluwa Adegbite</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/LinkedIn-1-200x300.jpg" alt="Maxwell Bacon"></div><div class="card-body"><h4>Maxwell Bacon</h4></div></article>
-            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Taiki-Headshot-266x300.jpg" alt="Taiki Murakami"></div><div class="card-body"><h4>Taiki Murakami</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Julian-Kim-241x300.jpg" alt="Julian Kim" decoding="async" loading="lazy"></div><div class="card-body"><h4>Julian Kim</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Oreoluwa-Adegbite-Headshot-240x300.jpg" alt="Oreoluwa Adegbite" decoding="async" loading="lazy"></div><div class="card-body"><h4>Oreoluwa Adegbite</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/LinkedIn-1-200x300.jpg" alt="Maxwell Bacon" decoding="async" loading="lazy"></div><div class="card-body"><h4>Maxwell Bacon</h4></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="shapelab_photos/shapelab_photos/Taiki-Headshot-266x300.jpg" alt="Taiki Murakami" decoding="async" loading="lazy"></div><div class="card-body"><h4>Taiki Murakami</h4></div></article>
           </div>
         </div>
       </div>
@@ -2304,15 +2199,15 @@
           <h2 class="section-title">What's happening at SHAPE.</h2>
         </div>
         <article class="news-feature reveal">
-          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/Additive_Manufacturing-G.Manogharan.jpg" alt="Additive manufacturing project"></div>
+          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/Additive_Manufacturing-G.Manogharan.jpg" alt="Additive manufacturing project" decoding="async" loading="lazy"></div>
           <div><h3>$1.6M DARPA award for AM fatigue prediction</h3><p>Dr. Manogharan was awarded $1.6 million through DARPA to improve prediction accuracy and reduce compute time for estimating service life of metal parts produced with additive manufacturing.</p></div>
         </article>
         <article class="news-feature reveal">
-          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/20250625_125103-1024x768.jpg" alt="Student poster recognition"></div>
+          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/20250625_125103-1024x768.jpg" alt="Student poster recognition" decoding="async" loading="lazy"></div>
           <div><h3>Kaitlyn Hartman awarded 2nd place in the MSEC 2025 student poster competition.</h3><p>Recognized for work on functionally graded TPMS lattice structures for biomedical applications.</p></div>
         </article>
         <article class="news-feature reveal">
-          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/250096-psn-tpms_blueorange-300x225.jpg" alt="Two-metal 3D printed structure"></div>
+          <div class="feature-image"><img src="shapelab_photos/shapelab_photos/250096-psn-tpms_blueorange-300x225.jpg" alt="Two-metal 3D printed structure" decoding="async" loading="lazy"></div>
           <div><h3>Beyond welding: researchers 3D print two metals in a single complex structure.</h3><p>Multi-material additive manufacturing research points toward new structures and joining-free production strategies.</p></div>
         </article>
       </div>
@@ -2322,28 +2217,28 @@
       <div class="container">
         <div class="reveal"><div class="section-kicker">Sponsors</div><h2 class="section-title">Sponsors and partners.</h2><p class="section-lede">SHAPE Lab research is built around collaborations that connect manufacturing science to real application needs.</p></div>
         <div class="sponsor-grid reveal" aria-label="SHAPE Lab sponsors">
-          <a class="sponsor-card" href="https://www.nsf.gov/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2020/02/NSF_4-Color_bitmap_Logo-298x300.png" alt="National Science Foundation logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>National Science Foundation</h4></div></a>
-          <a class="sponsor-card" href="https://www.americamakes.us/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="http://www.tri-c.edu/programs/engineering-technology/manufacturing-engineering/3d-digital-design-and-manufacturing-technology/images/america-makes.jpg" alt="America Makes logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>America Makes</h4></div></a>
-          <a class="sponsor-card" href="https://www.afrl.af.mil/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://media.defense.gov/2012/Nov/01/2000100887/-1/-1/0/121101-F-JZ008-240.JPG" alt="Air Force Research Laboratory logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>Air Force Research Laboratory</h4></div></a>
-          <a class="sponsor-card" href="https://www.nre.navy.mil/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/Office_of_Naval_Research_Official_Logo-1q0s65d-300x137.png" alt="Office of Naval Research logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>Office of Naval Research</h4></div></a>
+          <a class="sponsor-card" href="https://www.nsf.gov/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2020/02/NSF_4-Color_bitmap_Logo-298x300.png" alt="National Science Foundation logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>National Science Foundation</h4></div></a>
+          <a class="sponsor-card" href="https://www.americamakes.us/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="http://www.tri-c.edu/programs/engineering-technology/manufacturing-engineering/3d-digital-design-and-manufacturing-technology/images/america-makes.jpg" alt="America Makes logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>America Makes</h4></div></a>
+          <a class="sponsor-card" href="https://www.afrl.af.mil/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://media.defense.gov/2012/Nov/01/2000100887/-1/-1/0/121101-F-JZ008-240.JPG" alt="Air Force Research Laboratory logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>Air Force Research Laboratory</h4></div></a>
+          <a class="sponsor-card" href="https://www.nre.navy.mil/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/Office_of_Naval_Research_Official_Logo-1q0s65d-300x137.png" alt="Office of Naval Research logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>Office of Naval Research</h4></div></a>
           <!-- Add local file shapelab_photos/shapelab_photos/sponsors/pa-manufacturing-logo.png for this sponsor logo when available. -->
-          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2020/06/image-153x300.png" alt="Pennsylvania manufacturing sponsor logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Sponsor</div><h4>Pennsylvania Manufacturing Sponsor</h4></div></a>
-          <a class="sponsor-card" href="https://dced.pa.gov/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/PA-DCED-Logo-RACP-1q5i7zw-300x76.jpg" alt="Pennsylvania Department of Community and Economic Development logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>PA Department of Community and Economic Development</h4></div></a>
-          <a class="sponsor-card" href="https://www.nist.gov/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/nistlogo_centerexcellence-1cjege7-300x143.jpg" alt="NIST Center of Excellence logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>NIST Center of Excellence</h4></div></a>
+          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2020/06/image-153x300.png" alt="Pennsylvania manufacturing sponsor logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Sponsor</div><h4>Pennsylvania Manufacturing Sponsor</h4></div></a>
+          <a class="sponsor-card" href="https://dced.pa.gov/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/PA-DCED-Logo-RACP-1q5i7zw-300x76.jpg" alt="Pennsylvania Department of Community and Economic Development logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>PA Department of Community and Economic Development</h4></div></a>
+          <a class="sponsor-card" href="https://www.nist.gov/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/nistlogo_centerexcellence-1cjege7-300x143.jpg" alt="NIST Center of Excellence logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>NIST Center of Excellence</h4></div></a>
           <!-- Add local file shapelab_photos/shapelab_photos/sponsors/defense-manufacturing-sponsor-logo.jpg for this sponsor logo when available. -->
-          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2025/02/images-300x136.jpg" alt="Defense manufacturing sponsor logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Sponsor</div><h4>Defense Manufacturing Sponsor</h4></div></a>
-          <a class="sponsor-card" href="https://iacmi.org/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2025/02/IACMI_logo-300x154.png" alt="IACMI The Composites Institute logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>IACMI - The Composites Institute</h4></div></a>
-          <a class="sponsor-card" href="https://www.darpa.mil/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2025/02/darpa-logo-300x163.jpg" alt="DARPA logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>DARPA</h4></div></a>
+          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2025/02/images-300x136.jpg" alt="Defense manufacturing sponsor logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Sponsor</div><h4>Defense Manufacturing Sponsor</h4></div></a>
+          <a class="sponsor-card" href="https://iacmi.org/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2025/02/IACMI_logo-300x154.png" alt="IACMI The Composites Institute logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>IACMI - The Composites Institute</h4></div></a>
+          <a class="sponsor-card" href="https://www.darpa.mil/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2025/02/darpa-logo-300x163.jpg" alt="DARPA logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>DARPA</h4></div></a>
         </div>
         <h3 class="sponsor-heading reveal">Partners</h3>
         <div class="sponsor-grid reveal" aria-label="SHAPE Lab partners">
-          <a class="sponsor-card" href="https://www.methodsmachine.com/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="http://www.mmsonline.com/cdn/showrooms/profile/logo/Methods%20email%20logo.jpg" alt="Methods Machine Tools logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Methods Machine Tools</h4></div></a>
+          <a class="sponsor-card" href="https://www.methodsmachine.com/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="http://www.mmsonline.com/cdn/showrooms/profile/logo/Methods%20email%20logo.jpg" alt="Methods Machine Tools logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Methods Machine Tools</h4></div></a>
           <!-- Add local file shapelab_photos/shapelab_photos/sponsors/partner-logo-2.png for this partner logo when available. -->
-          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/logo-21lo2vj.png" alt="SHAPE Lab partner logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Industrial Collaboration Partner</h4></div></a>
+          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/logo-21lo2vj.png" alt="SHAPE Lab partner logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Industrial Collaboration Partner</h4></div></a>
           <!-- Add local file shapelab_photos/shapelab_photos/sponsors/partner-logo-3.png for this partner logo when available. -->
-          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://d2q79iu7y748jz.cloudfront.net/s/_logo/7e176f6b8f69ff34570ace1c3853f668" alt="SHAPE Lab partner logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Technical Collaboration Partner</h4></div></a>
-          <a class="sponsor-card" href="https://www.hagerstowncc.edu/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/hcclogo-2c6kfxy.jpg" alt="Hagerstown Community College logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Academic Partner</div><h4>Hagerstown Community College</h4></div></a>
-          <a class="sponsor-card" href="https://www.mastercam.com/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/MastercamBlackRed_RGB-1pobr8g.png" alt="Mastercam logo" loading="lazy"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Mastercam</h4></div></a>
+          <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://d2q79iu7y748jz.cloudfront.net/s/_logo/7e176f6b8f69ff34570ace1c3853f668" alt="SHAPE Lab partner logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Technical Collaboration Partner</h4></div></a>
+          <a class="sponsor-card" href="https://www.hagerstowncc.edu/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/hcclogo-2c6kfxy.jpg" alt="Hagerstown Community College logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Academic Partner</div><h4>Hagerstown Community College</h4></div></a>
+          <a class="sponsor-card" href="https://www.mastercam.com/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="https://sites.psu.edu/shapelab/files/2017/03/MastercamBlackRed_RGB-1pobr8g.png" alt="Mastercam logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Mastercam</h4></div></a>
         </div>
       </div>
     </section>
@@ -2387,57 +2282,73 @@
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
       });
     }, { threshold: 0.12 });
 
     document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const parallaxLayers = [...document.querySelectorAll("[data-parallax-speed]")];
-    const heroBackground = document.querySelector(".hero-bg");
-    const parallaxScene = document.querySelector(".parallax-scene");
-    let ticking = false;
-    let pointerX = 0;
-    let pointerY = 0;
+    const parallaxLayers = [...document.querySelectorAll("[data-parallax-speed]")].map((layer) => ({
+      element: layer,
+      speed: Number(layer.dataset.parallaxSpeed || 1)
+    }));
 
-    window.addEventListener("pointermove", (event) => {
-      if (!parallaxScene || motionQuery.matches) return;
-      pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
-      pointerY = (event.clientY / window.innerHeight - 0.5) * 2;
-      parallaxScene.style.setProperty("--mx", pointerX.toFixed(4));
-      parallaxScene.style.setProperty("--my", pointerY.toFixed(4));
-    }, { passive: true });
+    let parallaxTicking = false;
+    let parallaxEnabled = false;
+    let parallaxTravel = -150;
+    let scrollRange = 1;
+
+    function refreshParallaxMetrics() {
+      const rootStyles = getComputedStyle(document.documentElement);
+      parallaxTravel = parseFloat(rootStyles.getPropertyValue("--am-parallax-travel")) || -150;
+      scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      parallaxEnabled = !motionQuery.matches && window.innerWidth >= 760 && parallaxLayers.length > 0;
+
+      if (!parallaxEnabled) {
+        parallaxLayers.forEach(({ element }) => {
+          element.style.transform = "translate3d(0, 0, 0)";
+        });
+      }
+    }
 
     function updateParallax() {
-      ticking = false;
-      if (motionQuery.matches || window.innerWidth < 760) {
-        parallaxLayers.forEach((layer) => layer.style.setProperty("--parallax-y", "0px"));
-        if (heroBackground) heroBackground.style.transform = "scale(1.12)";
-        return;
-      }
+      parallaxTicking = false;
+      if (!parallaxEnabled) return;
 
       const scrollY = window.scrollY || window.pageYOffset;
-      parallaxLayers.forEach((layer) => {
-        const speed = Number(layer.dataset.parallaxSpeed || 0);
-        layer.style.setProperty("--parallax-y", `${scrollY * speed}px`);
-      });
+      const progress = Math.min(1, Math.max(0, scrollY / scrollRange));
 
-      if (heroBackground) {
-        heroBackground.style.transform = `translate3d(0, ${scrollY * 0.12}px, 0) scale(1.12)`;
-      }
+      parallaxLayers.forEach(({ element, speed }) => {
+        const y = progress * speed * parallaxTravel;
+        element.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
+      });
     }
 
     function requestParallax() {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(updateParallax);
-      }
+      if (parallaxTicking) return;
+      parallaxTicking = true;
+      requestAnimationFrame(updateParallax);
+    }
+
+    function handleParallaxResize() {
+      refreshParallaxMetrics();
+      requestParallax();
     }
 
     window.addEventListener("scroll", requestParallax, { passive: true });
-    window.addEventListener("resize", requestParallax);
-    motionQuery.addEventListener?.("change", requestParallax);
+    window.addEventListener("resize", handleParallaxResize, { passive: true });
+    window.addEventListener("load", handleParallaxResize, { once: true });
+
+    if (motionQuery.addEventListener) {
+      motionQuery.addEventListener("change", handleParallaxResize);
+    } else if (motionQuery.addListener) {
+      motionQuery.addListener(handleParallaxResize);
+    }
+
+    refreshParallaxMetrics();
     updateParallax();
   </script>
 </body>
