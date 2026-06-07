@@ -1,6 +1,6 @@
 param(
-  [string]$SourcePath = "additive-manufacturing-hero/assets/additive-blueprint-bg.png",
-  [string]$OutputPath = "additive-manufacturing-hero/assets/additive-blueprint-bg-extended.jpg",
+  [string]$SourcePath = "assets/backgrounds/additive-blueprint-bg.png",
+  [string]$OutputPath = "assets/backgrounds/additive-blueprint-bg-extended.jpg",
   [int]$Width = 1920,
   [int]$Height = 12000
 )
