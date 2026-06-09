@@ -54,26 +54,48 @@ function New-Row([object[]]$Values) {
   return [pscustomobject]@{ Values = $Values }
 }
 
+function Get-ColumnWidth([string]$Header) {
+  switch -Regex ($Header) {
+    "^(Description|Text Or Value|Authors|Publication Meta)$" { return 52 }
+    "^(Headline|Title|Focus|Image Alt|Link Text)$" { return 42 }
+    "^(Link|DOI Or Link|Website|Href|Image Src|Logo Src|Src|Path)$" { return 46 }
+    "^(Group|Section|Grid|Period|Category)$" { return 22 }
+    "^(Source Line|Bytes|Loading|Kind|File Type|Modified)$" { return 14 }
+    default { return 24 }
+  }
+}
+
 function Add-SheetXml([System.IO.Compression.ZipArchive]$Zip, [string]$Path, [object[]]$Headers, [object[]]$Rows) {
   $entry = $Zip.CreateEntry($Path)
   $stream = $entry.Open()
   $writer = New-Object System.IO.StreamWriter($stream, [System.Text.Encoding]::UTF8)
   $writer.Write('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>')
-  $writer.Write('<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"/></sheetViews><sheetFormatPr defaultRowHeight="15"/><sheetData>')
+  $lastColumn = Convert-ToColumnName $Headers.Count
+  $lastRow = [math]::Max(1, $Rows.Count + 1)
+  $writer.Write("<worksheet xmlns=""http://schemas.openxmlformats.org/spreadsheetml/2006/main""><dimension ref=""A1:$lastColumn$lastRow""/><sheetViews><sheetView tabSelected=""0"" workbookViewId=""0""><pane ySplit=""1"" topLeftCell=""A2"" activePane=""bottomLeft"" state=""frozen""/><selection pane=""bottomLeft"" activeCell=""A2"" sqref=""A2""/></sheetView></sheetViews><sheetFormatPr defaultRowHeight=""18""/>")
+  $writer.Write('<cols>')
+  for ($c = 0; $c -lt $Headers.Count; $c++) {
+    $colNumber = $c + 1
+    $width = Get-ColumnWidth ([string]$Headers[$c])
+    $writer.Write("<col min=""$colNumber"" max=""$colNumber"" width=""$width"" customWidth=""1""/>")
+  }
+  $writer.Write('</cols><sheetData>')
   $allRows = @((New-Row $Headers)) + $Rows
   for ($r = 0; $r -lt $allRows.Count; $r++) {
     $rowNumber = $r + 1
-    $writer.Write("<row r=""$rowNumber"">")
+    $rowHeight = if ($r -eq 0) { 24 } else { 48 }
+    $writer.Write("<row r=""$rowNumber"" ht=""$rowHeight"" customHeight=""1"">")
     $values = $allRows[$r].Values
     for ($c = 0; $c -lt $values.Count; $c++) {
       $cellRef = "$(Convert-ToColumnName ($c + 1))$rowNumber"
       $value = [string]$values[$c]
       $escaped = [System.Security.SecurityElement]::Escape($value)
-      $writer.Write("<c r=""$cellRef"" t=""inlineStr""><is><t xml:space=""preserve"">$escaped</t></is></c>")
+      $style = if ($r -eq 0) { 1 } else { 2 }
+      $writer.Write("<c r=""$cellRef"" s=""$style"" t=""inlineStr""><is><t xml:space=""preserve"">$escaped</t></is></c>")
     }
     $writer.Write('</row>')
   }
-  $writer.Write('</sheetData><autoFilter ref="A1:Z1"/><pageMargins left="0.7" right="0.7" top="0.75" bottom="0.75" header="0.3" footer="0.3"/></worksheet>')
+  $writer.Write("</sheetData><autoFilter ref=""A1:$lastColumn$lastRow""/><pageMargins left=""0.7"" right=""0.7"" top=""0.75"" bottom=""0.75"" header=""0.3"" footer=""0.3""/></worksheet>")
   $writer.Dispose()
   $stream.Dispose()
 }
@@ -334,7 +356,7 @@ try {
   Add-ZipText $zip "[Content_Types].xml" $contentTypes
   Add-ZipText $zip "xl/workbook.xml" $workbookSheets
   Add-ZipText $zip "xl/_rels/workbook.xml.rels" $rels
-  Add-ZipText $zip "xl/styles.xml" '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts><fills count="1"><fill><patternFill patternType="none"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/></cellXfs></styleSheet>'
+  Add-ZipText $zip "xl/styles.xml" '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><color rgb="FFFFFFFF"/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1F4E78"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFD9E2F3"/></left><right style="thin"><color rgb="FFD9E2F3"/></right><top style="thin"><color rgb="FFD9E2F3"/></top><bottom style="thin"><color rgb="FFD9E2F3"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'
 }
 finally {
   $zip.Dispose()
