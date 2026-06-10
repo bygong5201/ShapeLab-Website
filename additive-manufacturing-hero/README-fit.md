@@ -7,8 +7,8 @@ It does not replace your main file.
 
 - `shape-lab-background-fit.css` - CSS override that sizes the blueprint background to the full website viewport.
 - `shape-lab-background-fit.js` - optional pointer/scroll parallax motion.
-- `assets/additive-blueprint-bg-1920.png` - optimized 16:9 background for normal screens.
-- `assets/additive-blueprint-bg-2560.png` - high-resolution background for wide screens.
+- `../assets/backgrounds/additive-blueprint-bg-1920.png` - optimized 16:9 background for normal screens.
+- `../assets/backgrounds/additive-blueprint-bg-2560.png` - high-resolution background for wide screens.
 
 ## Add to your existing `index.html`
 

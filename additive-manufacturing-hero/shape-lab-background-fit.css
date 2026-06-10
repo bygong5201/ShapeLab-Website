@@ -4,11 +4,11 @@
   index.html without renaming or replacing your current page.
 
   Required asset path:
-  additive-manufacturing-hero/assets/additive-blueprint-bg-1920.png
+  ../assets/backgrounds/additive-blueprint-bg-1920.png
 */
 
 :root {
-  --am-bg-image: url("additive-manufacturing-hero/assets/additive-blueprint-bg-1920.png");
+  --am-bg-image: url("../assets/backgrounds/additive-blueprint-bg-1920.png");
   --am-bg-paper: #f8fbff;
   --am-blue: 83, 177, 255;
   --am-ink: 7, 21, 38;
@@ -128,7 +128,7 @@ body {
 
 @media (min-width: 1800px) {
   :root {
-    --am-bg-image: url("additive-manufacturing-hero/assets/additive-blueprint-bg-2560.png");
+    --am-bg-image: url("../assets/backgrounds/additive-blueprint-bg-2560.png");
     --am-parallax-overscan: 2.5%;
   }
 }
