@@ -38,6 +38,11 @@ function Get-FirstAttr([string]$Html, [string]$Pattern, [string]$Attr) {
   return ""
 }
 
+function Get-ProjectMeta([string]$Html, [string]$Label) {
+  $pattern = '<span>\s*<b>\s*' + [regex]::Escape($Label) + ':\s*</b>\s*([\s\S]*?)</span>'
+  return Get-FirstText $Html $pattern
+}
+
 function Get-LineNumber([string]$Text, [int]$Index) {
   return (($Text.Substring(0, $Index) -split "`n").Count)
 }
@@ -155,6 +160,9 @@ foreach ($group in [regex]::Matches($research, '<div class="project-group reveal
       $(Get-FirstText $card.Value '<p>([\s\S]*?)</p>'),
       $(if ($img.Success) { Get-Attr $img.Value "src" } else { "" }),
       $(if ($img.Success) { Get-Attr $img.Value "alt" } else { "" }),
+      $(Get-ProjectMeta $card.Value "Students"),
+      $(Get-ProjectMeta $card.Value "Tools"),
+      $(Get-ProjectMeta $card.Value "Manufacturing"),
       $(Get-LineNumber $html ($html.IndexOf($card.Value, [StringComparison]::Ordinal)))
     )))
   }
@@ -314,7 +322,7 @@ if (Test-Path $photoRoot) {
 
 $sheets = @(
   @{ Name = "Site Copy"; Headers = @("Section", "Content Type", "Label", "Text Or Value", "Link", "Notes", "Source Line"); Rows = $siteRows.ToArray() },
-  @{ Name = "Research"; Headers = @("Group", "Kicker", "Title", "Description", "Image Src", "Image Alt", "Source Line"); Rows = $researchRows.ToArray() },
+  @{ Name = "Research"; Headers = @("Group", "Kicker", "Title", "Description", "Image Src", "Image Alt", "People", "Software", "Manufacturing", "Source Line"); Rows = $researchRows.ToArray() },
   @{ Name = "Team"; Headers = @("Group", "Name", "Role", "Education", "Focus", "Image Src", "Image Alt"); Rows = $teamRows.ToArray() },
   @{ Name = "Publications"; Headers = @("Group", "Title", "Authors", "Publication Meta", "DOI Or Link", "Source Line"); Rows = $publicationRows.ToArray() },
   @{ Name = "News"; Headers = @("Period", "Headline", "Description", "Link", "Image Src", "Image Alt", "Source Line"); Rows = $newsRows.ToArray() },

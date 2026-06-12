@@ -253,6 +253,11 @@
       animation: floatUp 900ms 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
+    .parallax-reveal {
+      min-height: clamp(10rem, 24vh, 18rem);
+      background: transparent;
+    }
+
     .section {
       position: relative;
       overflow: hidden;
@@ -308,9 +313,10 @@
 
     #research {
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 244, 239, 0.72) 46%, rgba(255, 255, 255, 0.94)),
-        radial-gradient(circle at 88% 10%, rgba(52, 107, 185, 0.1), transparent 28%),
-        radial-gradient(circle at 8% 38%, rgba(111, 42, 45, 0.08), transparent 30%);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(246, 244, 239, 0.42) 46%, rgba(255, 255, 255, 0.7)),
+        radial-gradient(circle at 88% 10%, rgba(52, 107, 185, 0.08), transparent 28%),
+        radial-gradient(circle at 8% 38%, rgba(111, 42, 45, 0.06), transparent 30%);
+      backdrop-filter: blur(2px);
     }
 
     #research .section-title {
@@ -541,6 +547,7 @@
     }
 
     .project-meta b {
+      margin-right: 0.25em;
       color: var(--foreground);
       font-weight: 800;
     }
@@ -1259,6 +1266,8 @@
       </div>
     </section>
 
+    <div class="parallax-reveal" aria-hidden="true"></div>
+
     <section id="research" class="section section-pad">
       <div class="container">
         <div class="reveal">
@@ -1282,7 +1291,7 @@
                   <li>Leads to early identification of defects.</li>
                 </ul>
                 <div class="project-meta">
-                  <span><b>Students:</b> Philip King, Md Moinuddin Shuvo</span>
+                  <span><b>Students:</b> Aishwarya Deshpande</span>
                   <span><b>Tools:</b> Flow 3D, Solidcast, nTopology</span>
                   <span><b>Manufacturing:</b> ExOne, VoxelJet</span>
                 </div>
@@ -1307,9 +1316,20 @@
                   <li>Develops manufacturing recommendations for AM+MF systems.</li>
                 </ul>
                 <div class="project-meta">
-                  <span><b>Students:</b> Foxian Fan, Sagar Jalui, Kazi Safowan Shahed</span>
+                  <span><b>Students:</b> Kazi Safowan Shahed</span>
                   <span><b>Tools:</b> SolidWorks, Fusion 360, Keyence, Python</span>
                   <span><b>Manufacturing:</b> 3D Systems ProX 320 (L-PBF); Arcam Q20+</span>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="image-frame"><img src="research%20photos/Wire%20resin.png" alt="Wire Resin Co-Axial Material Extrusion" decoding="async" loading="lazy"></div>
+              <div class="card-body">
+                <div class="card-kicker">Electronics</div>
+                <h4>Wire Resin Co-Axial Material Extrusion</h4>
+                <p>A novel wire-embedding technique through a co-axial extrusion process, which can be retrofitted into a generic material extrusion (MEX)-based hybrid additive manufacturing (AM) machine and uses a wire-based feedstock, which is substantially less expensive than conductive inks and requires fewer processing steps than conventional direct ink writing systems.</p>
+                <div class="project-meta">
+                  <span><b>Students:</b> Ashish Jacob</span>
                 </div>
               </div>
             </article>
@@ -1320,22 +1340,28 @@
           <h3>Multi-Material Additive Manufacturing</h3>
           <div class="grid project-grid">
             <article class="card">
-              <div class="image-frame"><img src="research%20photos/multi-material-lpbf-tpms.png" alt="Multi-material laser powder bed fusion of complex structures" decoding="async" loading="lazy"></div>
+              <div class="image-frame"><img src="research%20photos/multi-material-lpbf-tpms.png" alt="Multi-Material Laser Powder Bed Fusion" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">Laser Powder Bed Fusion</div>
-                <h4>Multi-Material Laser Powder Bed Fusion of Complex Structures</h4>
+                <h4>Multi-Material Laser Powder Bed Fusion</h4>
                 <p>Multi-material L-PBF research develops complex structures with reduced material use and characterized microstructure.</p>
                 <ul class="project-highlights">
                   <li>Comparable mechanical loading responses can be achieved with significant weight and material consumption reduction through TPMS structures.</li>
                   <li>Microstructural and lattice morphological characterization uses Micro-CT, SEM, EBSD, and EDS.</li>
                 </ul>
                 <div class="project-meta">
-                  <span><b>Students:</b> Jacklyn Griffis, Buket Yilmaz</span>
-                  <span><b>Tools:</b> nTopology</span>
+                  <span><b>Students:</b> Bryan Gong, Aishwarya Deshpande, Chris Carson</span>
+                  <span><b>Tools:</b> Flow3D, 3DXpert</span>
                   <span><b>Manufacturing:</b> 3D Systems ProX 320 (L-PBF) equipped with Aerosint's Selective Powder Deposition recoating chambers</span>
                 </div>
               </div>
             </article>
+          </div>
+        </div>
+
+        <div class="project-group reveal">
+          <h3>Non-Pneumatic Tires</h3>
+          <div class="grid project-grid">
             <article class="card">
               <div class="image-frame"><img src="research%20photos/non-pneumatic-tires-tpms.png" alt="Design of non-pneumatic tires using TPMS" decoding="async" loading="lazy"></div>
               <div class="card-body">
@@ -1349,7 +1375,7 @@
                   <li>Testing uses uniaxial compression and Digital Image Correlation.</li>
                 </ul>
                 <div class="project-meta">
-                  <span><b>Students:</b> Ankit Saxena, Avez Shaikh</span>
+                  <span><b>Students:</b> Avez Shaikh</span>
                   <span><b>Tools:</b> nTopology, SolidWorks, Ansys Mechanical</span>
                   <span><b>Manufacturing:</b> 3D Systems Figure 4 Standalone</span>
                 </div>
@@ -1372,7 +1398,7 @@
                   <li>Increased droplet velocity resulted in shorter spreading time.</li>
                 </ul>
                 <div class="project-meta">
-                  <span><b>Students:</b> Kazi Safowan Shahed, Willem Groeneveld-Meijer</span>
+                  <span><b>Students:</b> Kazi Safowan Shahed</span>
                   <span><b>Tools:</b> Flow3D</span>
                   <span><b>Manufacturing:</b> Desktop Metal ExOne Innovent+</span>
                 </div>
@@ -1401,7 +1427,7 @@
             <p class="role">Co-Director, CIMP-3D &middot; Associate Professor, Department of Mechanical Engineering</p>
             <p>Ph.D., Industrial Engineering, North Carolina State University<br>M.S., Industrial Engineering, North Carolina State University<br>B.Tech., Mechanical Engineering, SASTRA University, India</p>
             <p>Additive Manufacturing, Hybrid Manufacturing, Design Optimization, CNC Machining and Non-Traditional Machining, Biomedical Applications of AM and Metal Casting.</p>
-            <div class="director-links" aria-label="Guha Manogharan links"><a href="mailto:gum53@psu.edu">Email</a><a href="https://scholar.google.com/citations?hl=en&amp;user=KcYleckAAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a></div>
+            <div class="director-links" aria-label="Guha Manogharan links"><a href="mailto:gum53@psu.edu">Email</a><a href="https://scholar.google.com/citations?hl=en&amp;user=KcYleckAAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a><a href="https://www.linkedin.com/in/guhamanogharan/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
           </div>
         </article>
 
@@ -1557,6 +1583,7 @@
           <button class="news-toggle" type="button" aria-expanded="false" aria-controls="news-archive" data-news-toggle>Show more news</button>
         </div>
         <div id="news-archive" class="news-list reveal" aria-label="SHAPE Lab news archive" hidden>
+          <article class="news-item"><div class="card-kicker">Spring 2026</div><h3>Congratulations to Julian Kim for being awarded the NSF GRFP, who will be joining MIT for his Ph.D. in Mechanical Engineering.</h3></article>
           <article class="news-item"><div class="card-kicker">Spring 2026</div><h3>Congratulations to Kazi Shahed for being awarded the Marcus-Neibel-Schall Graduate Student Scholarship.</h3></article>
           <article class="news-item"><div class="card-kicker">Fall 2025</div><h3>Congratulations to Bryan Gong for being awarded the University Graduate Fellowship.</h3></article>
           <article class="news-item"><div class="card-kicker">Spring 2025</div><h3>Congratulations to Ashish Jacob for being recognized with the <a class="text-link" href="https://www.psu.edu/news/graduate-school/story/graduate-school-honors-40-graduate-students-teaching-excellence" target="_blank" rel="noopener noreferrer">2025 Harold F. Martin Graduate Assistant Outstanding Teaching Award</a>.</h3></article>
@@ -1661,6 +1688,8 @@
           <a class="sponsor-card" href="https://iacmi.org/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="sponsors-partners/iacmi-logo.png" alt="IACMI The Composites Institute logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>IACMI - The Composites Institute</h4></div></a>
           <a class="sponsor-card" href="https://sites.psu.edu/shapelab/sponsors/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="sponsors-partners/ascent-flextech.png" alt="Ascent FlexTech logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Ascent FlexTech</h4></div></a>
           <a class="sponsor-card" href="https://www.darpa.mil/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="sponsors-partners/darpa-logo.jpg" alt="DARPA logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Government Partner</div><h4>DARPA</h4></div></a>
+          <a class="sponsor-card" href="https://www.autodesk.com/store" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="sponsors-partners/Autodesk.png" alt="Autodesk logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>Autodesk</h4></div></a>
+          <a class="sponsor-card" href="https://www.3dsystems.com/" target="_blank" rel="noopener noreferrer"><div class="sponsor-logo"><img src="sponsors-partners/3D_Systems_Logo.png" alt="3D Systems logo" loading="lazy" decoding="async"></div><div class="card-body"><div class="sponsor-label">Industry Partner</div><h4>3D Systems</h4></div></a>
         </div>
         <h3 class="sponsor-heading reveal">Partners</h3>
         <div class="sponsor-grid reveal" aria-label="SHAPE Lab partners">
