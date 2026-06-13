@@ -313,13 +313,20 @@
 
     #research {
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(246, 244, 239, 0.42) 46%, rgba(255, 255, 255, 0.7)),
-        radial-gradient(circle at 88% 10%, rgba(52, 107, 185, 0.08), transparent 28%),
-        radial-gradient(circle at 8% 38%, rgba(111, 42, 45, 0.06), transparent 30%);
-      backdrop-filter: blur(2px);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(246, 244, 239, 0.12) 46%, rgba(255, 255, 255, 0.24)),
+        radial-gradient(circle at 88% 10%, rgba(52, 107, 185, 0.04), transparent 28%),
+        radial-gradient(circle at 8% 38%, rgba(111, 42, 45, 0.03), transparent 30%);
+      backdrop-filter: none;
+    }
+
+    #research::before {
+      background:
+        linear-gradient(90deg, rgba(252, 251, 248, 0.18), rgba(252, 251, 248, 0.06) 48%, rgba(252, 251, 248, 0.14)),
+        rgba(252, 251, 248, 0.04);
     }
 
     #research .section-title {
+      margin-top: 0;
       max-width: 54rem;
     }
 
@@ -1277,7 +1284,7 @@
         </div>
 
         <div class="project-group reveal">
-          <h3>Sand Casting</h3>
+          <h3>Casting</h3>
           <div class="grid project-grid">
             <article class="card">
               <div class="image-frame"><img src="research%20photos/sand-casting.png" alt="Advancing metal casting process via 3D sand printing" decoding="async" loading="lazy"></div>
@@ -1294,6 +1301,28 @@
                   <span><b>Students:</b> Aishwarya Deshpande</span>
                   <span><b>Tools:</b> Flow 3D, Solidcast, nTopology</span>
                   <span><b>Manufacturing:</b> ExOne, VoxelJet</span>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="image-frame"><img src="research%20photos/Oxide%20bifilm.png" alt="Oxide bi-film entrapment mechanisms and mold-design based mitigation in low-pressure inert atmosphere casting conditions" decoding="async" loading="lazy"></div>
+              <div class="card-body">
+                <div class="card-kicker">Advanced Casting</div>
+                <h4>Oxide bi-film entrapment mechanisms and mold-design based mitigation in low-pressure inert atmosphere casting conditions</h4>
+                <div class="project-meta">
+                  <span><b>Students:</b> Krishna Vistarakula</span>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="image-frame"><img src="research%20photos/america-makes.png" alt="America Makes Digi-FOCUS: Digital Foundry Optimized for Cyber-physical and Agile Systems" decoding="async" loading="lazy"></div>
+              <div class="card-body">
+                <div class="card-kicker">AM + Casting + Digital Twin</div>
+                <h4>America Makes Digi-FOCUS: Digital Foundry Optimized for Cyber-physical and Agile Systems</h4>
+                <div class="project-meta">
+                  <span><b>Students:</b> Chris Carson</span>
+                  <span><b>Tools:</b> 3D Sprint, Simplify3D, SolidWorks, Fusion360, Python, SolidCast</span>
+                  <span><b>Manufacturing:</b> 3D Systems EXT Titan 1070 (Extrusion+Machining), 3D Systems PSLA 270 (Vat Photopolymerization), Lightspeed Concepts (Sand Printing), Casting</span>
                 </div>
               </div>
             </article>
@@ -1330,6 +1359,8 @@
                 <p>A novel wire-embedding technique through a co-axial extrusion process, which can be retrofitted into a generic material extrusion (MEX)-based hybrid additive manufacturing (AM) machine and uses a wire-based feedstock, which is substantially less expensive than conductive inks and requires fewer processing steps than conventional direct ink writing systems.</p>
                 <div class="project-meta">
                   <span><b>Students:</b> Ashish Jacob</span>
+                  <span><b>Tools:</b> nStudio, Repetral, Nova v1.22.0</span>
+                  <span><b>Manufacturing:</b> nScrypt 3Dx-700, Hyrel 3D Hydra 21, Voltera Nova</span>
                 </div>
               </div>
             </article>
@@ -1340,28 +1371,22 @@
           <h3>Multi-Material Additive Manufacturing</h3>
           <div class="grid project-grid">
             <article class="card">
-              <div class="image-frame"><img src="research%20photos/multi-material-lpbf-tpms.png" alt="Multi-Material Laser Powder Bed Fusion" decoding="async" loading="lazy"></div>
+              <div class="image-frame"><img src="research%20photos/multi-material-lpbf-tpms.png" alt="Multi-material laser powder bed fusion of complex structures" decoding="async" loading="lazy"></div>
               <div class="card-body">
                 <div class="card-kicker">Laser Powder Bed Fusion</div>
-                <h4>Multi-Material Laser Powder Bed Fusion</h4>
+                <h4>Multi-Material Laser Powder Bed Fusion of Complex Structures</h4>
                 <p>Multi-material L-PBF research develops complex structures with reduced material use and characterized microstructure.</p>
                 <ul class="project-highlights">
                   <li>Comparable mechanical loading responses can be achieved with significant weight and material consumption reduction through TPMS structures.</li>
                   <li>Microstructural and lattice morphological characterization uses Micro-CT, SEM, EBSD, and EDS.</li>
                 </ul>
                 <div class="project-meta">
-                  <span><b>Students:</b> Bryan Gong, Aishwarya Deshpande, Chris Carson</span>
-                  <span><b>Tools:</b> Flow3D, 3DXpert</span>
+                  <span><b>Students:</b> Bryan Gong, Aishwarya Deshpande, Chirs Carson</span>
+                  <span><b>Tools:</b> 3D Xpert, Flow3D</span>
                   <span><b>Manufacturing:</b> 3D Systems ProX 320 (L-PBF) equipped with Aerosint's Selective Powder Deposition recoating chambers</span>
                 </div>
               </div>
             </article>
-          </div>
-        </div>
-
-        <div class="project-group reveal">
-          <h3>Non-Pneumatic Tires</h3>
-          <div class="grid project-grid">
             <article class="card">
               <div class="image-frame"><img src="research%20photos/non-pneumatic-tires-tpms.png" alt="Design of non-pneumatic tires using TPMS" decoding="async" loading="lazy"></div>
               <div class="card-body">
@@ -1435,6 +1460,7 @@
           <h3 class="team-group-title">Post-Doctorate</h3>
           <div class="grid cards-4">
             <article class="card profile-card"><div class="image-frame"><img src="profile_photos/Aish.jpg" alt="Aishwarya Deshpande" decoding="async" loading="lazy"></div><div class="card-body"><h4>Aishwarya Deshpande, Ph.D.</h4><div class="profile-links" aria-label="Aishwarya Deshpande links"><a href="mailto:aad6034@psu.edu">Email</a><a href="https://scholar.google.com/citations?hl=en&amp;user=ef_GbGwAAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a><a href="https://www.linkedin.com/in/aishwarya-deshpande-504b33177/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div></article>
+            <article class="card profile-card"><div class="image-frame"><img src="profile_photos/Kaustubh.jpg" alt="Kaustubh Deshmukh" decoding="async" loading="lazy"></div><div class="card-body"><h4>Kaustubh Deshmukh, Ph.D.</h4></div></article>
           </div>
         </div>
 
